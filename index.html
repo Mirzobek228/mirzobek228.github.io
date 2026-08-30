@@ -3,66 +3,305 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nexus Verse</title>
+    <title>Nexus Verse WPG - Военно-политический сервер</title>
     <style>
+        /* Основные стили */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
         body {
-            font-family: Arial, sans-serif;
-            background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
-            color: white;
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #1a0000 0%, #4a0000 25%, #2a0000 50%, #1a0000 100%);
+            color: #ffffff;
             min-height: 100vh;
+            overflow-x: hidden;
+        }
+        
+        /* Анимированный фон */
+        .background-animation {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 20% 50%, rgba(255, 0, 0, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 50%, rgba(139, 0, 0, 0.15) 0%, transparent 50%);
+            z-index: -1;
+            animation: pulse 4s ease-in-out infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { opacity: 0.8; }
+            50% { opacity: 1; }
+        }
+        
+        /* Шапка */
+        .header {
+            text-align: center;
+            padding: 50px 20px 30px;
+            position: relative;
+        }
+        
+        .logo {
+            font-size: 4em;
+            font-weight: bold;
+            text-transform: uppercase;
+            background: linear-gradient(45deg, #ff0000, #ff4444, #cc0000, #ff6666);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: glow 3s ease-in-out infinite;
+            letter-spacing: 3px;
+        }
+        
+        @keyframes glow {
+            0%, 100% { filter: drop-shadow(0 0 10px rgba(255, 0, 0, 0.5)); }
+            50% { filter: drop-shadow(0 0 25px rgba(255, 0, 0, 0.9)); }
+        }
+        
+        .subtitle {
+            font-size: 1.5em;
+            color: #ffcccc;
+            margin-top: 10px;
+            letter-spacing: 2px;
+        }
+        
+        /* Контейнер */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* Кнопки */
+        .btn-discord {
+            display: inline-block;
+            padding: 15px 40px;
+            margin: 20px 10px;
+            background: linear-gradient(45deg, #ff0000, #cc0000);
+            color: white;
+            text-decoration: none;
+            border-radius: 50px;
+            font-size: 1.2em;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+            border: 2px solid #ff4444;
+            box-shadow: 0 5px 15px rgba(255, 0, 0, 0.3);
+        }
+        
+        .btn-discord:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(255, 0, 0, 0.5);
+            background: linear-gradient(45deg, #ff1111, #dd0000);
+        }
+        
+        /* Информационные блоки */
+        .info-section {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin: 50px 0;
+        }
+        
+        .info-card {
+            background: rgba(139, 0, 0, 0.2);
+            border: 1px solid rgba(255, 0, 0, 0.3);
+            border-radius: 15px;
+            padding: 30px;
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+        }
+        
+        .info-card:hover {
+            background: rgba(139, 0, 0, 0.3);
+            border-color: rgba(255, 0, 0, 0.6);
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(255, 0, 0, 0.2);
+        }
+        
+        .info-card h3 {
+            color: #ff4444;
+            font-size: 1.8em;
+            margin-bottom: 15px;
+            text-transform: uppercase;
+        }
+        
+        .info-card p {
+            color: #ffcccc;
+            line-height: 1.6;
+            font-size: 1.1em;
+        }
+        
+        /* Виджет Discord */
+        .discord-widget {
+            background: rgba(0, 0, 0, 0.5);
+            border: 2px solid #ff0000;
+            border-radius: 20px;
+            padding: 30px;
+            margin: 50px 0;
+            box-shadow: 0 0 30px rgba(255, 0, 0, 0.3);
+        }
+        
+        .discord-widget h2 {
+            color: #ff4444;
+            text-align: center;
+            font-size: 2em;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+        
+        .widget-container {
             display: flex;
             justify-content: center;
             align-items: center;
-            margin: 0;
-            padding: 20px;
         }
         
-        .container {
-            text-align: center;
+        iframe {
+            border: none;
+            border-radius: 10px;
+            background: #1a0000;
+            width: 100%;
             max-width: 800px;
+            height: 500px;
         }
         
-        h1 {
-            font-size: 60px;
-            margin-bottom: 20px;
-            background: linear-gradient(45deg, #ff6b6b, #4ecdc4, #45b7d1);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+        /* Дополнительный виджет для конкретного канала */
+        .channel-widget {
+            background: rgba(255, 0, 0, 0.1);
+            border: 1px solid rgba(255, 0, 0, 0.5);
+            border-radius: 15px;
+            padding: 20px;
+            margin-top: 30px;
         }
         
-        p {
-            font-size: 20px;
-            color: #a8b2d1;
-            line-height: 1.6;
+        /* Футер */
+        .footer {
+            text-align: center;
+            padding: 30px 20px;
+            background: rgba(0, 0, 0, 0.5);
+            margin-top: 50px;
+            border-top: 2px solid #ff0000;
         }
         
-        .btn {
-            display: inline-block;
-            padding: 15px 30px;
-            margin: 10px;
-            background: linear-gradient(45deg, #4ecdc4, #45b7d1);
-            color: white;
-            text-decoration: none;
-            border-radius: 5px;
-            font-size: 18px;
+        .footer p {
+            color: #ff9999;
         }
         
-        .btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+        /* Анимация появления */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .fade-in {
+            animation: fadeInUp 1s ease-out;
+        }
+        
+        .delay-1 { animation-delay: 0.2s; }
+        .delay-2 { animation-delay: 0.4s; }
+        .delay-3 { animation-delay: 0.6s; }
+        
+        /* Мобильная адаптация */
+        @media (max-width: 768px) {
+            .logo {
+                font-size: 2.5em;
+            }
+            
+            .subtitle {
+                font-size: 1.2em;
+            }
+            
+            .info-card h3 {
+                font-size: 1.5em;
+            }
+            
+            iframe {
+                height: 400px;
+            }
         }
     </style>
 </head>
 <body>
+    <div class="background-animation"></div>
+    
+    <!-- Шапка -->
+    <div class="header fade-in">
+        <div class="logo">Nexus Verse WPG</div>
+        <div class="subtitle">Военно-политический сервер Discord</div>
+        <a href="https://discord.gg/ваш-пригласительный-код" class="btn-discord">Присоединиться</a>
+    </div>
+    
     <div class="container">
-        <h1>Nexus Verse</h1>
-        <p>Добро пожаловать в Nexus Verse — пространство, где технологии встречаются с творчеством, а идеи превращаются в реальность.</p>
+        <!-- Информационные блоки -->
+        <div class="info-section">
+            <div class="info-card fade-in delay-1">
+                <h3>⚔️ Военная стратегия</h3>
+                <p>Разрабатывайте военные доктрины, участвуйте в стратегических операциях и командуйте войсками в масштабных конфликтах.</p>
+            </div>
+            
+            <div class="info-card fade-in delay-2">
+                <h3>🏛️ Политическая система</h3>
+                <p>Создавайте партии, участвуйте в выборах, формируйте правительства и влияйте на политическую жизнь сервера.</p>
+            </div>
+            
+            <div class="info-card fade-in delay-3">
+                <h3>🌍 Глобальные события</h3>
+                <p>Участвуйте в международных саммитах, заключайте союзы и ведите дипломатические переговоры с другими государствами.</p>
+            </div>
+        </div>
         
-        <a href="#" class="btn">Узнать больше</a>
-        <a href="mailto:contact@nexusverse.com" class="btn">Связаться с нами</a>
+        <!-- Виджет Discord -->
+        <div class="discord-widget fade-in">
+            <h2>Наш Discord сервер</h2>
+            <div class="widget-container">
+                <!-- Виджет всего сервера -->
+                <iframe src="https://discord.com/widget?id=1385741588457590907&theme=dark" 
+                        width="350" 
+                        height="500" 
+                        allowtransparency="true" 
+                        frameborder="0" 
+                        sandbox="allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts">
+                </iframe>
+            </div>
+            
+            <!-- Дополнительный виджет для конкретного канала -->
+            <div class="channel-widget">
+                <h3 style="color: #ff4444; text-align: center; margin-bottom: 15px;">
+                    📢 Актуальные объявления
+                </h3>
+                <!-- Виджет конкретного канала -->
+                <iframe src="https://discord.com/channels/1385741588457590907" ...>
+                        width="100%" 
+                        height="300" 
+                        style="border: none; border-radius: 10px;">
+                </iframe>
+            </div>
+        </div>
         
-        <h2 style="margin-top: 50px; color: #4ecdc4;">О проекте</h2>
-        <p>Nexus Verse — это digital-платформа для обмена идеями, создания проектов и развития сообщества единомышленников.</p>
+        <!-- Дополнительная информация -->
+        <div class="info-card fade-in" style="text-align: center; margin: 30px 0;">
+            <h3>Готовы начать?</h3>
+            <p>Присоединяйтесь к Nexus Verse WPG и станьте частью увлекательного мира военной стратегии и политических интриг!</p>
+            <a href="https://discord.gg/ваш-пригласительный-код" class="btn-discord">Вступить сейчас</a>
+        </div>
+    </div>
+    
+    <!-- Футер -->
+    <div class="footer">
+        <p>© 2026 Nexus Verse WPG - Военно-политический Discord сервер</p>
+        <p style="margin-top: 10px; color: #cc6666;">Создано с ❤️ для нашего сообщества</p>
     </div>
 </body>
 </html>
