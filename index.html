@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nexus Verse WPG • Военно-политический сервер</title>
-    <!-- Font Awesome -->
+    <title>Nexus Verse WPG</title>
+    <!-- Font Awesome (иконки) -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
         * {
@@ -16,63 +16,75 @@
 
         body {
             min-height: 100vh;
-            background: linear-gradient(180deg, #ff7b5a 0%, #ff4d3a 30%, #b02a1a 70%, #2c0a05 100%);
+            background: linear-gradient(145deg, #1a0b0b 0%, #2d1414 40%, #4f1e1e 70%, #6e2a2a 100%);
             background-attachment: fixed;
-            color: #fff4ed;
-            padding: 2rem 1rem;
+            color: #f5e6e6;
+            padding: 20px;
             position: relative;
         }
 
-        /* Звёзды */
-        body::before {
-            content: '';
+        /* Закатное небо со звёздами и солнцем */
+        .sky-background {
             position: fixed;
-            inset: 0;
-            background-image: 
-                radial-gradient(2px 2px at 20px 30px, #fff, rgba(0,0,0,0)),
-                radial-gradient(2px 2px at 40px 70px, #fff8e7, rgba(0,0,0,0)),
-                radial-gradient(2px 2px at 50px 160px, #fff, rgba(0,0,0,0)),
-                radial-gradient(1px 1px at 90px 40px, #fff, rgba(0,0,0,0)),
-                radial-gradient(2px 2px at 130px 80px, #ffe5c4, rgba(0,0,0,0)),
-                radial-gradient(1px 1px at 160px 30px, #fff, rgba(0,0,0,0)),
-                radial-gradient(2px 2px at 200px 120px, #fff0d0, rgba(0,0,0,0)),
-                radial-gradient(1px 1px at 250px 60px, #fff, rgba(0,0,0,0)),
-                radial-gradient(2px 2px at 300px 100px, #fff4e0, rgba(0,0,0,0)),
-                radial-gradient(1px 1px at 350px 40px, #fff, rgba(0,0,0,0)),
-                radial-gradient(2px 2px at 400px 150px, #ffe0c0, rgba(0,0,0,0)),
-                radial-gradient(1px 1px at 450px 70px, #fff, rgba(0,0,0,0)),
-                radial-gradient(2px 2px at 500px 110px, #fff, rgba(0,0,0,0)),
-                radial-gradient(1px 1px at 550px 30px, #fff8e0, rgba(0,0,0,0)),
-                radial-gradient(2px 2px at 600px 90px, #fff, rgba(0,0,0,0)),
-                radial-gradient(1px 1px at 650px 140px, #fff, rgba(0,0,0,0)),
-                radial-gradient(2px 2px at 700px 50px, #ffe0c0, rgba(0,0,0,0)),
-                radial-gradient(1px 1px at 750px 100px, #fff, rgba(0,0,0,0)),
-                radial-gradient(2px 2px at 800px 60px, #fff, rgba(0,0,0,0)),
-                radial-gradient(1px 1px at 850px 130px, #fff4e0, rgba(0,0,0,0)),
-                radial-gradient(2px 2px at 900px 40px, #fff, rgba(0,0,0,0)),
-                radial-gradient(1px 1px at 950px 80px, #fff, rgba(0,0,0,0)),
-                radial-gradient(2px 2px at 1000px 120px, #ffe0c0, rgba(0,0,0,0));
-            background-size: 200px 200px;
-            background-repeat: repeat;
-            opacity: 0.6;
-            pointer-events: none;
-            z-index: 0;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -2;
+            background: radial-gradient(circle at 70% 85%, #ff7b4a 0%, #d94f2a 25%, #a6311c 50%, #4f1a1a 75%, #1f0a0a 100%);
+            overflow: hidden;
         }
 
         /* Солнце */
-        body::after {
-            content: '';
-            position: fixed;
-            bottom: 5%;
-            right: 5%;
+        .sun {
+            position: absolute;
+            bottom: 12%;
+            right: 12%;
             width: 180px;
             height: 180px;
-            background: radial-gradient(circle, #ffd966 0%, #ff9f4a 50%, #ff6a33 80%, transparent 100%);
+            background: radial-gradient(circle, #ffe074 0%, #ffb347 60%, #ff7b2b 100%);
             border-radius: 50%;
-            filter: blur(3px);
-            opacity: 0.35;
-            pointer-events: none;
-            z-index: 0;
+            box-shadow: 0 0 120px #ff884d, 0 0 200px #ff6633, 0 0 300px #cc4422;
+            opacity: 0.9;
+            z-index: -1;
+        }
+
+        /* Звёзды */
+        .stars {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            background-image: 
+                radial-gradient(2px 2px at 10% 20%, #fff, rgba(0,0,0,0)),
+                radial-gradient(2px 2px at 30% 5%, #fff, rgba(0,0,0,0)),
+                radial-gradient(3px 3px at 55% 10%, #fff, rgba(0,0,0,0)),
+                radial-gradient(2px 2px at 80% 25%, #fff, rgba(0,0,0,0)),
+                radial-gradient(2px 2px at 15% 50%, #fff, rgba(0,0,0,0)),
+                radial-gradient(3px 3px at 45% 40%, #fff, rgba(0,0,0,0)),
+                radial-gradient(2px 2px at 70% 55%, #fff, rgba(0,0,0,0)),
+                radial-gradient(2px 2px at 90% 70%, #fff, rgba(0,0,0,0)),
+                radial-gradient(2px 2px at 5% 80%, #fff, rgba(0,0,0,0)),
+                radial-gradient(3px 3px at 60% 85%, #fff, rgba(0,0,0,0)),
+                radial-gradient(2px 2px at 25% 90%, #fff, rgba(0,0,0,0)),
+                radial-gradient(2px 2px at 88% 40%, #fff, rgba(0,0,0,0));
+            background-size: 100% 100%;
+            background-repeat: no-repeat;
+            opacity: 0.8;
+        }
+
+        /* Полупрозрачный слой для читаемости */
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(20, 5, 5, 0.4);
+            backdrop-filter: blur(1px);
+            z-index: -1;
         }
 
         .container {
@@ -82,578 +94,609 @@
             z-index: 2;
         }
 
-        /* ===== ШАПКА ===== */
+        /* Шапка */
         .header {
             display: flex;
             flex-wrap: wrap;
             align-items: center;
             justify-content: space-between;
-            background: rgba(40, 10, 5, 0.65);
-            backdrop-filter: blur(6px);
-            padding: 0.8rem 2rem;
-            border-radius: 60px;
-            border: 1px solid rgba(255, 160, 120, 0.3);
-            box-shadow: 0 12px 30px rgba(0,0,0,0.5);
-            margin-bottom: 2.5rem;
+            background: rgba(40, 15, 15, 0.7);
+            backdrop-filter: blur(8px);
+            padding: 16px 30px;
+            border-radius: 50px;
+            border: 1px solid rgba(255, 120, 80, 0.3);
+            box-shadow: 0 8px 30px rgba(0,0,0,0.6);
+            margin-bottom: 30px;
         }
 
-        .logo-block {
+        .logo-area {
             display: flex;
             align-items: center;
-            gap: 1rem;
+            gap: 18px;
+        }
+
+        .avatar-wrapper {
+            position: relative;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+        .avatar-wrapper:hover {
+            transform: scale(1.05);
         }
 
         .server-avatar {
-            width: 64px;
-            height: 64px;
+            width: 68px;
+            height: 68px;
             border-radius: 50%;
-            background: #ffa07a;
-            border: 2px solid #ffbb99;
-            box-shadow: 0 0 0 3px rgba(255, 120, 80, 0.4);
-            cursor: pointer;
-            transition: all 0.2s;
+            border: 2px solid #ff9a7a;
+            box-shadow: 0 0 20px #ff6633aa;
+            background: #2d1414;
             object-fit: cover;
         }
 
-        .server-avatar:hover {
-            transform: scale(1.05);
-            box-shadow: 0 0 20px #ff7f5a;
-        }
-
-        .server-title h1 {
+        .server-name {
             font-size: 1.9rem;
             font-weight: 600;
             letter-spacing: 1px;
-            color: #ffe3d0;
-            text-shadow: 0 2px 8px #a0301a;
-        }
-        .server-title span {
-            font-size: 0.9rem;
-            opacity: 0.85;
-            display: block;
-            color: #ffccb0;
+            background: linear-gradient(135deg, #ffc4b0, #ff8a6a);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-shadow: 0 0 20px #ff663355;
         }
 
-        .invite-btn {
-            background: #d64b2a;
-            color: #fff;
-            padding: 0.6rem 1.6rem;
+        .invite-link {
+            background: rgba(255, 80, 50, 0.2);
+            padding: 8px 22px;
             border-radius: 40px;
+            border: 1px solid #ff7a5a;
+            color: #ffd5c0;
             text-decoration: none;
-            font-weight: 600;
+            font-weight: 500;
+            transition: 0.3s;
+            backdrop-filter: blur(4px);
             font-size: 1rem;
-            border: 1px solid #ff8a6a;
-            transition: 0.2s;
-            box-shadow: 0 4px 10px rgba(180, 40, 10, 0.6);
         }
-        .invite-btn i {
+        .invite-link i {
             margin-right: 8px;
+            color: #ffaa88;
         }
-        .invite-btn:hover {
-            background: #e65a38;
-            transform: scale(1.02);
-            box-shadow: 0 6px 14px rgba(200, 50, 10, 0.8);
+        .invite-link:hover {
+            background: #ff5a3a55;
+            border-color: #ffaa88;
+            color: #fff;
+            box-shadow: 0 0 20px #ff663388;
         }
 
-        /* ===== НАВИГАЦИЯ ===== */
-        .nav-tabs {
+        /* Навигация */
+        .nav {
             display: flex;
             flex-wrap: wrap;
-            gap: 0.5rem 1rem;
-            margin-bottom: 2.2rem;
-            background: rgba(30, 10, 5, 0.5);
+            gap: 10px 18px;
+            background: rgba(30, 10, 10, 0.5);
             backdrop-filter: blur(4px);
-            padding: 0.7rem 2rem;
-            border-radius: 50px;
-            border: 1px solid rgba(255, 140, 100, 0.25);
+            padding: 12px 25px;
+            border-radius: 40px;
+            margin-bottom: 30px;
+            border: 1px solid #883c2a55;
         }
-
-        .nav-tabs a {
-            color: #ffddd0;
+        .nav a {
+            color: #f0d4cc;
             text-decoration: none;
             font-weight: 500;
-            padding: 0.4rem 1.2rem;
-            border-radius: 40px;
-            transition: 0.15s;
             font-size: 1.05rem;
-            letter-spacing: 0.3px;
-            background: transparent;
-            border: 1px solid transparent;
+            padding: 6px 8px;
+            border-radius: 30px;
+            transition: 0.2s;
+            border-bottom: 2px solid transparent;
         }
-
-        .nav-tabs a i {
+        .nav a i {
             margin-right: 8px;
-            opacity: 0.8;
+            color: #ff9f7a;
         }
-
-        .nav-tabs a:hover {
-            background: rgba(255, 120, 70, 0.25);
-            border-color: #ff7f5a;
+        .nav a:hover {
+            color: #fff2e6;
+            border-bottom-color: #ff8a5a;
+            background: #ff663322;
+            padding: 6px 14px;
+        }
+        .nav a.active {
             color: #fff;
+            border-bottom-color: #ff7a4a;
+            background: #ff663322;
         }
 
-        .nav-tabs a.active {
-            background: #d94f2e;
-            border-color: #ff8a6a;
-            color: #fff;
-            box-shadow: 0 2px 12px rgba(200, 60, 20, 0.6);
+        /* Основная сетка */
+        .main-grid {
+            display: grid;
+            grid-template-columns: 1fr 340px;
+            gap: 30px;
         }
 
-        /* ===== ОБНОВЛЕНИЯ СЕРВЕРА (вместо новостей) ===== */
-        .updates-section {
-            background: rgba(25, 8, 4, 0.6);
-            backdrop-filter: blur(8px);
-            border-radius: 36px;
-            padding: 1.8rem 2rem;
-            margin-bottom: 2.5rem;
-            border: 1px solid rgba(255, 130, 90, 0.3);
-            box-shadow: 0 15px 40px rgba(0,0,0,0.5);
+        @media (max-width: 900px) {
+            .main-grid {
+                grid-template-columns: 1fr;
+            }
         }
 
-        .updates-header {
+        /* Новости */
+        .news-section {
+            background: rgba(25, 8, 8, 0.65);
+            backdrop-filter: blur(6px);
+            border-radius: 30px;
+            padding: 25px 25px 30px;
+            border: 1px solid #aa4f3a55;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.5);
+        }
+
+        .section-title {
+            font-size: 1.6rem;
+            font-weight: 500;
+            margin-bottom: 20px;
             display: flex;
             align-items: center;
             gap: 12px;
-            border-bottom: 2px solid #d95a3a;
-            padding-bottom: 0.8rem;
-            margin-bottom: 1.5rem;
+            color: #ffcebb;
+            border-bottom: 1px solid #883c2a55;
+            padding-bottom: 12px;
         }
-        .updates-header i {
-            font-size: 2rem;
-            color: #ff8a6a;
-        }
-        .updates-header h2 {
-            font-weight: 500;
-            font-size: 1.8rem;
-            letter-spacing: 1px;
+        .section-title i {
+            color: #ff8f6a;
         }
 
-        .updates-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 1.2rem;
+        .news-feed {
+            display: flex;
+            flex-direction: column;
+            gap: 18px;
+            max-height: 600px;
+            overflow-y: auto;
+            padding-right: 6px;
+        }
+        .news-feed::-webkit-scrollbar {
+            width: 5px;
+        }
+        .news-feed::-webkit-scrollbar-track {
+            background: #331515;
+            border-radius: 20px;
+        }
+        .news-feed::-webkit-scrollbar-thumb {
+            background: #cc6a4a;
+            border-radius: 20px;
         }
 
-        .update-card {
-            background: rgba(70, 25, 15, 0.4);
+        .news-item {
+            background: rgba(60, 25, 20, 0.5);
+            border-left: 4px solid #ff7a4a;
+            padding: 16px 20px;
+            border-radius: 18px;
             backdrop-filter: blur(2px);
-            padding: 1.2rem 1.5rem;
-            border-radius: 28px;
-            border-left: 5px solid #f06a4a;
-            transition: 0.15s;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+            transition: 0.2s;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.3);
         }
-
-        .update-card:hover {
-            background: rgba(100, 40, 25, 0.5);
-            border-left-color: #ff9a7a;
-            transform: translateY(-2px);
+        .news-item:hover {
+            background: rgba(80, 35, 28, 0.6);
+            transform: translateX(4px);
         }
-
-        .update-date {
+        .news-item .date {
             font-size: 0.8rem;
-            opacity: 0.7;
+            color: #ccaa9a;
             margin-bottom: 6px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
         }
-        .update-date i {
-            margin-right: 6px;
+        .news-item .date i {
+            color: #ff8f6a;
+            font-size: 0.7rem;
         }
-
-        .update-title {
-            font-weight: 600;
-            font-size: 1.1rem;
-            color: #ffd6c0;
-        }
-        .update-desc {
-            font-size: 0.95rem;
-            opacity: 0.9;
-            margin-top: 4px;
-        }
-
-        /* ===== ПЕРСОНАЛ ===== */
-        .staff-section {
-            background: rgba(20, 7, 4, 0.6);
-            backdrop-filter: blur(8px);
-            border-radius: 36px;
-            padding: 1.8rem 2rem;
-            margin-bottom: 2.5rem;
-            border: 1px solid rgba(255, 130, 90, 0.2);
+        .news-item .content {
+            font-size: 1rem;
+            line-height: 1.5;
+            color: #f0ded6;
+            word-break: break-word;
         }
 
-        .staff-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 1.8rem;
-            margin-top: 1rem;
+        /* Боковая панель */
+        .sidebar {
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
         }
 
+        /* Персонал */
         .staff-card {
-            background: rgba(50, 18, 10, 0.5);
-            backdrop-filter: blur(2px);
+            background: rgba(25, 8, 8, 0.65);
+            backdrop-filter: blur(6px);
+            border-radius: 30px;
+            padding: 22px 20px 25px;
+            border: 1px solid #aa4f3a55;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.5);
+        }
+
+        .staff-list {
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+            margin-top: 8px;
+        }
+        .staff-item {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            background: rgba(50, 20, 18, 0.5);
+            padding: 10px 16px 10px 12px;
             border-radius: 40px;
-            padding: 1.2rem 0.8rem 1rem;
-            text-align: center;
-            border: 1px solid rgba(255, 150, 120, 0.2);
+            backdrop-filter: blur(2px);
+            border: 1px solid #6f352955;
             transition: 0.2s;
         }
-
-        .staff-card:hover {
-            background: rgba(80, 30, 18, 0.6);
-            border-color: #ff7f5a;
-            transform: translateY(-3px);
+        .staff-item:hover {
+            background: rgba(80, 35, 28, 0.5);
+            border-color: #cc6a4a;
         }
-
         .staff-avatar {
-            width: 80px;
-            height: 80px;
+            width: 48px;
+            height: 48px;
             border-radius: 50%;
-            background: #b04a30;
-            margin: 0 auto 10px;
-            border: 2px solid #ff8a6a;
-            box-shadow: 0 4px 12px rgba(200, 60, 20, 0.4);
+            border: 2px solid #ff9a7a;
+            background: #3f1d1d;
             object-fit: cover;
         }
-
+        .staff-info {
+            display: flex;
+            flex-direction: column;
+        }
         .staff-name {
             font-weight: 600;
-            font-size: 1.2rem;
-            color: #ffddcc;
+            color: #ffd9c9;
         }
         .staff-role {
-            font-size: 0.9rem;
-            opacity: 0.8;
-            color: #ffb89a;
+            font-size: 0.8rem;
+            color: #ccaa9a;
         }
 
-        /* ===== ДОНАТ / ПАМЯТКА ===== */
-        .donate-section {
-            background: rgba(25, 8, 4, 0.6);
-            backdrop-filter: blur(8px);
-            border-radius: 36px;
-            padding: 1.8rem 2rem;
-            margin-bottom: 2rem;
-            border: 1px solid rgba(255, 130, 90, 0.2);
+        /* Донат */
+        .donate-card {
+            background: rgba(25, 8, 8, 0.65);
+            backdrop-filter: blur(6px);
+            border-radius: 30px;
+            padding: 22px 20px 25px;
+            border: 1px solid #aa4f3a55;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.5);
         }
 
-        .donate-header {
+        .donate-card h3 {
+            font-weight: 400;
+            font-size: 1.3rem;
+            margin-bottom: 14px;
+            color: #ffcebb;
+            border-bottom: 1px solid #883c2a55;
+            padding-bottom: 10px;
             display: flex;
             align-items: center;
-            gap: 12px;
-            border-bottom: 2px solid #d95a3a;
-            padding-bottom: 0.6rem;
-            margin-bottom: 1.5rem;
+            gap: 10px;
         }
-        .donate-header i {
-            font-size: 2rem;
-            color: #ffb07a;
-        }
-        .donate-header h2 {
-            font-weight: 500;
-            font-size: 1.8rem;
-        }
-
-        .donate-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-            gap: 1.2rem 2rem;
+        .donate-card h3 i {
+            color: #ffb08a;
         }
 
         .donate-item {
-            background: rgba(70, 25, 12, 0.3);
-            padding: 0.8rem 1.2rem;
-            border-radius: 40px;
             display: flex;
             justify-content: space-between;
-            font-size: 1rem;
-            border: 1px solid rgba(255, 140, 100, 0.15);
+            padding: 8px 4px;
+            border-bottom: 1px dashed #6f352944;
+            font-size: 0.95rem;
         }
-        .donate-item span:first-child {
-            font-weight: 400;
-            color: #ffd6c0;
+        .donate-item:last-child {
+            border-bottom: none;
         }
-        .donate-item span:last-child {
-            font-weight: 600;
-            color: #ffb389;
+        .donate-item .price {
+            color: #ffb08a;
+            font-weight: 500;
         }
-
         .donate-note {
-            margin-top: 1.5rem;
-            background: rgba(40, 12, 6, 0.5);
-            padding: 1rem 1.8rem;
-            border-radius: 60px;
-            border-left: 5px solid #ff7f5a;
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: space-between;
-            align-items: center;
+            margin-top: 14px;
+            padding: 12px;
+            background: rgba(60, 25, 18, 0.4);
+            border-radius: 20px;
+            font-size: 0.9rem;
+            border-left: 3px solid #ff7a4a;
         }
         .donate-note strong {
-            color: #ffbea0;
+            color: #ffc4aa;
+        }
+        .currency-rate {
+            margin-top: 12px;
+            background: #3f1d1d55;
+            padding: 10px 14px;
+            border-radius: 30px;
+            text-align: center;
+            font-weight: 400;
+            color: #ffd5c0;
+            border: 1px solid #88443355;
         }
 
-        .donate-currency {
-            font-size: 1.4rem;
-            font-weight: 500;
-            color: #ffe0c0;
-            background: rgba(200, 60, 20, 0.3);
-            padding: 0.2rem 1.2rem;
-            border-radius: 60px;
-        }
-
-        /* ===== МОДАЛКА ===== */
-        .modal-overlay {
-            position: fixed;
-            inset: 0;
-            background: rgba(0,0,0,0.7);
-            backdrop-filter: blur(5px);
+        /* Модалка для аватарки */
+        .modal {
             display: none;
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: rgba(0,0,0,0.75);
+            backdrop-filter: blur(6px);
+            z-index: 999;
             justify-content: center;
             align-items: center;
-            z-index: 999;
-            padding: 1rem;
         }
-
-        .modal-overlay.open {
-            display: flex;
-        }
-
         .modal-content {
             max-width: 600px;
-            width: 100%;
-            background: #2a0f08;
-            border-radius: 48px;
-            padding: 1.8rem;
-            border: 2px solid #ff8a6a;
-            box-shadow: 0 30px 60px rgba(0,0,0,0.8);
+            width: 90%;
+            background: rgba(30, 10, 10, 0.9);
+            border-radius: 40px;
+            padding: 20px;
+            border: 2px solid #ff8a5a;
+            box-shadow: 0 0 80px #ff663388;
+            animation: fadeIn 0.3s ease;
             text-align: center;
-            position: relative;
         }
-
         .modal-content img {
             width: 100%;
-            border-radius: 32px;
-            border: 2px solid #ffa07a;
+            border-radius: 30px;
+            border: 2px solid #ff9a7a;
         }
-
         .modal-close {
-            position: absolute;
-            top: 10px;
-            right: 20px;
-            font-size: 2.5rem;
-            color: #ffb090;
+            margin-top: 18px;
+            background: #cc5a3a;
+            border: none;
+            padding: 10px 32px;
+            border-radius: 40px;
+            color: #fff;
+            font-weight: 600;
+            font-size: 1rem;
             cursor: pointer;
             transition: 0.2s;
         }
         .modal-close:hover {
-            color: #ff7f5a;
-            transform: rotate(90deg);
+            background: #ff7a4a;
+            box-shadow: 0 0 30px #ff663366;
         }
 
-        /* ===== АДАПТИВ ===== */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: scale(0.9); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        /* футер */
+        .footer {
+            margin-top: 40px;
+            text-align: center;
+            color: #bb9a8a;
+            font-size: 0.9rem;
+            border-top: 1px solid #6f352944;
+            padding-top: 25px;
+            backdrop-filter: blur(2px);
+        }
+
+        /* адаптив */
         @media (max-width: 700px) {
             .header {
                 flex-direction: column;
-                align-items: stretch;
-                gap: 0.8rem;
+                align-items: start;
+                gap: 15px;
                 border-radius: 30px;
-                padding: 1.2rem;
             }
-            .logo-block {
-                justify-content: center;
-            }
-            .server-title h1 {
+            .server-name {
                 font-size: 1.4rem;
             }
-            .invite-btn {
-                text-align: center;
-            }
-            .nav-tabs {
+            .nav {
+                gap: 8px;
                 justify-content: center;
-                border-radius: 30px;
-                padding: 0.6rem 0.8rem;
             }
-            .nav-tabs a {
+            .nav a {
                 font-size: 0.9rem;
-                padding: 0.2rem 0.9rem;
             }
-            .updates-section, .staff-section, .donate-section {
-                padding: 1.2rem;
-            }
-            .donate-item {
-                flex-direction: column;
-                align-items: center;
-                gap: 0.2rem;
-            }
-        }
-
-        footer {
-            text-align: center;
-            margin-top: 2.5rem;
-            opacity: 0.5;
-            font-size: 0.9rem;
-            letter-spacing: 1px;
         }
     </style>
 </head>
 <body>
-<div class="container">
-
-    <!-- ШАПКА -->
-    <header class="header">
-        <div class="logo-block">
-            <img src="https://cdn.discordapp.com/icons/1385741587350290573/a_avatar?size=128" 
-                 alt="Nexus Verse" 
-                 class="server-avatar" 
-                 id="serverAvatar"
-                 onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22%3E%3Crect fill=%22%23b04a30%22 width=%22100%22 height=%22100%22/%3E%3Ctext x=%2220%22 y=%2265%22 font-size=%2240%22 fill=%22%23ffc0a0%22%3ENV%3C/text%3E%3C/svg%3E'">
-            <div class="server-title">
-                <h1>NEXUS VERSE WPG</h1>
-                <span><i class="fas fa-shield-alt"></i> Военно-политический сервер</span>
-            </div>
-        </div>
-        <a href="https://discord.gg/nexusverse" class="invite-btn" target="_blank">
-            <i class="fab fa-discord"></i> Пригласить
-        </a>
-    </header>
-
-    <!-- НАВИГАЦИЯ -->
-    <nav class="nav-tabs">
-        <a href="#" class="active"><i class="fas fa-globe-europe"></i> Обновления</a>
-        <a href="#"><i class="fas fa-users"></i> Персонал</a>
-        <a href="#"><i class="fas fa-coins"></i> Донат</a>
-        <a href="#"><i class="fas fa-info-circle"></i> О сервере</a>
-    </nav>
-
-    <!-- БЛОК ОБНОВЛЕНИЙ (вместо новостей) -->
-    <section class="updates-section">
-        <div class="updates-header">
-            <i class="fas fa-bell"></i>
-            <h2>Обновления сервера</h2>
-        </div>
-        <div class="updates-grid">
-            <div class="update-card">
-                <div class="update-date"><i class="far fa-calendar-alt"></i> 30.08.2026</div>
-                <div class="update-title">⚡ Баланс сил</div>
-                <div class="update-desc">Переработана система альянсов. Добавлены новые дипломатические механики.</div>
-            </div>
-            <div class="update-card">
-                <div class="update-date"><i class="far fa-calendar-alt"></i> 28.08.2026</div>
-                <div class="update-title">📜 Карта обновлена</div>
-                <div class="update-desc">Добавлены 4 новых региона. Изменены границы влияния.</div>
-            </div>
-            <div class="update-card">
-                <div class="update-date"><i class="far fa-calendar-alt"></i> 26.08.2026</div>
-                <div class="update-title">🏆 Турнирная таблица</div>
-                <div class="update-desc">Опубликованы итоги ежемесячного турнира. Поздравляем победителей!</div>
-            </div>
-            <div class="update-card">
-                <div class="update-date"><i class="far fa-calendar-alt"></i> 24.08.2026</div>
-                <div class="update-title">🛡️ Набор в гвардию</div>
-                <div class="update-desc">Открыт набор в элитный отряд. Требования: уровень 10+, активность.</div>
-            </div>
-        </div>
-    </section>
-
-    <!-- ПЕРСОНАЛ -->
-    <section class="staff-section">
-        <div style="display: flex; align-items: center; gap: 12px; border-bottom: 2px solid #d95a3a; padding-bottom: 0.6rem; margin-bottom: 1.5rem;">
-            <i class="fas fa-id-card" style="font-size: 2rem; color: #ff8a6a;"></i>
-            <h2 style="font-weight: 500; font-size: 1.8rem;">Персонал</h2>
-        </div>
-        <div class="staff-grid">
-            <div class="staff-card">
-                <img src="https://cdn.discordapp.com/avatars/747462012291776514/a_avatar?size=80" 
-                     class="staff-avatar" 
-                     onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22%3E%3Crect fill=%22%23a04030%22 width=%22100%22 height=%22100%22/%3E%3Ctext x=%2220%22 y=%2265%22 font-size=%2240%22 fill=%22%23ffc0a0%22%3EV%3C/text%3E%3C/svg%3E'">
-                <div class="staff-name">Vermilion</div>
-                <div class="staff-role"><i class="fas fa-crown"></i> Владелец</div>
-            </div>
-            <div class="staff-card">
-                <img src="https://cdn.discordapp.com/avatars/1383969207196192851/a_avatar?size=80" 
-                     class="staff-avatar" 
-                     onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22%3E%3Crect fill=%22%23a04030%22 width=%22100%22 height=%22100%22/%3E%3Ctext x=%2220%22 y=%2265%22 font-size=%2240%22 fill=%22%23ffc0a0%22%3EM%3C/text%3E%3C/svg%3E'">
-                <div class="staff-name">Mirzobek</div>
-                <div class="staff-role"><i class="fas fa-code"></i> Разработчик бота</div>
-            </div>
-            <div class="staff-card">
-                <img src="https://cdn.discordapp.com/avatars/484044030640914437/a_avatar?size=80" 
-                     class="staff-avatar" 
-                     onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22%3E%3Crect fill=%22%23a04030%22 width=%22100%22 height=%22100%22/%3E%3Ctext x=%2220%22 y=%2265%22 font-size=%2240%22 fill=%22%23ffc0a0%22%3EA%3C/text%3E%3C/svg%3E'">
-                <div class="staff-name">AytacOnan2</div>
-                <div class="staff-role"><i class="fas fa-user-tie"></i> Гражданин Айтактауна</div>
-            </div>
-            <div class="staff-card">
-                <img src="https://cdn.discordapp.com/avatars/1327423107648192526/a_avatar?size=80" 
-                     class="staff-avatar" 
-                     onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22%3E%3Crect fill=%22%23a04030%22 width=%22100%22 height=%22100%22/%3E%3Ctext x=%2220%22 y=%2265%22 font-size=%2240%22 fill=%22%23ffc0a0%22%3ED%3C/text%3E%3C/svg%3E'">
-                <div class="staff-name">Dyrm9</div>
-                <div class="staff-role"><i class="fas fa-shield"></i> Дурмис</div>
-            </div>
-        </div>
-    </section>
-
-    <!-- ДОНАТ-ПАМЯТКА -->
-    <section class="donate-section">
-        <div class="donate-header">
-            <i class="fas fa-gem"></i>
-            <h2>Донат-валюта • NV коины</h2>
-        </div>
-
-        <div class="donate-grid">
-            <div class="donate-item"><span>👑 Бронь на сверхдержаву</span><span>500 NV</span></div>
-            <div class="donate-item"><span>⚔️ Бронь на сильную державу</span><span>350 NV</span></div>
-            <div class="donate-item"><span>🏛️ Бронь на развитую державу</span><span>200 NV</span></div>
-            <div class="donate-item"><span>🎭 Кастомная роль</span><span>180 NV</span></div>
-        </div>
-
-        <div style="margin: 1rem 0 0.8rem; font-size: 0.95rem; background: rgba(50,15,8,0.4); padding: 0.6rem 1.5rem; border-radius: 60px;">
-            <span style="color: #ffbe9a;">⭐ Сверхдержавы — КНР, США</span>  •  
-            <span style="color: #ffbe9a;">⭐ Сильные — Россия, Турция, Бразилия, Великобритания, Франция, Индия</span>  •  
-            <span style="color: #ffbe9a;">⭐ Развитые — Германия, Япония, Южная Корея, Италия, Саудовская Аравия</span>
-        </div>
-
-        <div class="donate-note">
-            <span><i class="fas fa-flag"></i> <strong>Бронь на все остальные страны</strong> — 75 NV коинов</span>
-            <span class="donate-currency"><i class="fas fa-coins"></i> 1 NV = 0,65 ₽</span>
-        </div>
-        <div style="margin-top: 0.8rem; opacity: 0.6; font-size: 0.9rem; text-align: right;">
-            <i class="fas fa-credit-card"></i> Курс актуален на 2026
-        </div>
-    </section>
-
-    <footer>
-        <i class="fas fa-circle" style="color: #ff7f5a; font-size: 0.5rem;"></i> Nexus Verse WPG • Военно-политический сервер <i class="fas fa-circle" style="color: #ff7f5a; font-size: 0.5rem;"></i>
-    </footer>
-</div>
-
-<!-- МОДАЛЬНОЕ ОКНО -->
-<div class="modal-overlay" id="avatarModal">
-    <div class="modal-content">
-        <span class="modal-close" id="closeModal">&times;</span>
-        <img src="https://cdn.discordapp.com/icons/1385741587350290573/a_avatar?size=512" 
-             alt="Nexus Verse аватарка"
-             onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 200 200%22%3E%3Crect fill=%22%23b04a30%22 width=%22200%22 height=%22200%22/%3E%3Ctext x=%2240%22 y=%22130%22 font-size=%2280%22 fill=%22%23ffc0a0%22%3ENV%3C/text%3E%3C/svg%3E'">
-        <p style="margin-top: 12px; color: #ffc0a0; font-weight: 400;">Nexus Verse • ID: 1385741587350290573</p>
+    <div class="sky-background">
+        <div class="stars"></div>
+        <div class="sun"></div>
     </div>
-</div>
+    <div class="overlay"></div>
 
-<script>
-    // Модальное окно для аватарки
-    const avatar = document.getElementById('serverAvatar');
-    const modal = document.getElementById('avatarModal');
-    const closeModal = document.getElementById('closeModal');
+    <!-- Модалка для аватарки -->
+    <div id="avatarModal" class="modal">
+        <div class="modal-content">
+            <img id="modalAvatarImg" src="https://cdn.discordapp.com/icons/1385741587350290573/a_avatar_hash.webp?size=512" alt="Nexus Verse">
+            <button class="modal-close" id="closeModalBtn"><i class="fas fa-times"></i> Закрыть</button>
+        </div>
+    </div>
 
-    avatar.addEventListener('click', () => {
-        modal.classList.add('open');
-    });
+    <div class="container">
+        <!-- Шапка -->
+        <header class="header">
+            <div class="logo-area">
+                <div class="avatar-wrapper" id="avatarTrigger">
+                    <img class="server-avatar" src="https://cdn.discordapp.com/icons/1385741587350290573/a_avatar_hash.webp?size=128" alt="Server Icon">
+                </div>
+                <span class="server-name">NEXUS VERSE WPG</span>
+            </div>
+            <a href="https://discord.gg/nexusverse" target="_blank" class="invite-link">
+                <i class="fas fa-rocket"></i> Присоединиться
+            </a>
+        </header>
 
-    closeModal.addEventListener('click', () => {
-        modal.classList.remove('open');
-    });
+        <!-- Навигация -->
+        <nav class="nav">
+            <a href="#" class="active"><i class="fas fa-newspaper"></i> Новости сервера</a>
+            <a href="#"><i class="fas fa-users"></i> Персонал</a>
+            <a href="#"><i class="fas fa-coins"></i> Донат</a>
+            <a href="#"><i class="fas fa-info-circle"></i> О сервере</a>
+        </nav>
 
-    modal.addEventListener('click', (e) => {
-        if (e.target === modal) modal.classList.remove('open');
-    });
-</script>
+        <!-- Основная сетка -->
+        <div class="main-grid">
+            <!-- Лента новостей -->
+            <section class="news-section">
+                <div class="section-title">
+                    <i class="fas fa-broadcast"></i> Новости сервера
+                </div>
+                <div id="newsFeed" class="news-feed">
+                    <!-- Новости будут загружены через JS -->
+                    <div class="news-item"><div class="date"><i class="far fa-clock"></i> Загрузка...</div><div class="content">Получение сообщений из канала...</div></div>
+                </div>
+            </section>
+
+            <!-- Боковая панель -->
+            <aside class="sidebar">
+                <!-- Персонал -->
+                <div class="staff-card">
+                    <div class="section-title" style="font-size:1.3rem; margin-bottom:8px;">
+                        <i class="fas fa-shield-alt"></i> Персонал
+                    </div>
+                    <div class="staff-list" id="staffList">
+                        <!-- Заполняется JS -->
+                    </div>
+                </div>
+
+                <!-- Донат -->
+                <div class="donate-card">
+                    <h3><i class="fas fa-gem"></i> Донат-валюта</h3>
+                    <div class="donate-item"><span>Бронь на сверхдержаву</span><span class="price">500 NV</span></div>
+                    <div class="donate-item"><span>Бронь на сильную державу</span><span class="price">350 NV</span></div>
+                    <div class="donate-item"><span>Бронь на развитую державу</span><span class="price">200 NV</span></div>
+                    <div class="donate-item"><span>Кастомная роль</span><span class="price">180 NV</span></div>
+                    <div class="donate-note">
+                        <strong>Сверхдержавы:</strong> КНР, США<br>
+                        <strong>Сильные:</strong> Россия, Турция, Бразилия, Великобритания, Франция, Индия<br>
+                        <strong>Развитые:</strong> Германия, Япония, Южная Корея, Италия, Саудовская Аравия
+                    </div>
+                    <div class="donate-item" style="border-bottom: none; padding-top:6px;">
+                        <span>Бронь на остальные страны</span><span class="price">75 NV</span>
+                    </div>
+                    <div class="currency-rate">
+                        <i class="fas fa-coins"></i> 1 NV коин = 0,65 ₽
+                    </div>
+                </div>
+            </aside>
+        </div>
+
+        <div class="footer">
+            <i class="fas fa-globe"></i> Nexus Verse WPG · Военно-политический сервер
+        </div>
+    </div>
+
+    <script>
+        (function() {
+            // === Данные персонала ===
+            const staffData = [
+                { id: '747462012291776514', name: 'Vermilion', role: 'Владелец сервера' },
+                { id: '1383969207196192851', name: 'Mirzobek', role: 'Разработчик бота' },
+                { id: '484044030640914437', name: 'AytacOnan2', role: 'Гражданин айтактауна' },
+                { id: '1327423107648192526', name: 'Dyrm9', role: 'Дурмис' }
+            ];
+
+            // === ID канала для новостей (1385741588457590907) ===
+            const CHANNEL_ID = '1385741588457590907';
+            // Для демонстрации используем статичные примеры, т.к. реальный API Discord требует OAuth.
+            // Но по заданию "публиковались все сообщения из канала" — используем заглушку с реалистичным видом.
+            // В реальном проекте нужен бот/прокси. Здесь покажем оформление и структуру.
+
+            function renderStaff() {
+                const container = document.getElementById('staffList');
+                if (!container) return;
+                container.innerHTML = '';
+                staffData.forEach(member => {
+                    const avatarUrl = `https://cdn.discordapp.com/avatars/${member.id}/${member.id}.webp?size=64`;
+                    const div = document.createElement('div');
+                    div.className = 'staff-item';
+                    div.innerHTML = `
+                        <img class="staff-avatar" src="${avatarUrl}" alt="${member.name}" onerror="this.src='https://cdn.discordapp.com/embed/avatars/0.png'">
+                        <div class="staff-info">
+                            <span class="staff-name">${member.name}</span>
+                            <span class="staff-role">${member.role}</span>
+                        </div>
+                    `;
+                    container.appendChild(div);
+                });
+            }
+
+            // === Загрузка новостей (демо) ===
+            function loadNews() {
+                const feed = document.getElementById('newsFeed');
+                if (!feed) return;
+
+                // Имитация сообщений из канала (в реальности — запрос к API)
+                const demoMessages = [
+                    { date: '2026-08-30 14:20', text: '📢 Начало новой эры! Объявлен набор в альянсы.' },
+                    { date: '2026-08-30 12:05', text: '⚔️ Конфликт между США и КНР: эскалация на Тихом океане.' },
+                    { date: '2026-08-29 21:40', text: '💰 Курс NV коина обновлён: 1 NV = 0,65 ₽' },
+                    { date: '2026-08-29 18:15', text: '🏛️ Внесены изменения в правила бронирования держав.' },
+                    { date: '2026-08-29 09:30', text: '🌍 Сервер переходит на новый движок WPG 2.0' }
+                ];
+
+                feed.innerHTML = '';
+                demoMessages.forEach(msg => {
+                    const item = document.createElement('div');
+                    item.className = 'news-item';
+                    item.innerHTML = `
+                        <div class="date"><i class="far fa-calendar-alt"></i> ${msg.date}</div>
+                        <div class="content">${msg.text}</div>
+                    `;
+                    feed.appendChild(item);
+                });
+
+                // Добавим сообщение, что это демо-лента (в реальности данные из канала)
+                const info = document.createElement('div');
+                info.style.cssText = 'text-align:center; color:#bb8a7a; font-size:0.8rem; margin-top:12px; border-top:1px solid #6f352944; padding-top:12px;';
+                info.innerHTML = '<i class="fas fa-info-circle"></i> Данные из канала #новости (демонстрация)';
+                feed.appendChild(info);
+            }
+
+            // === Модалка для аватарки ===
+            function initModal() {
+                const modal = document.getElementById('avatarModal');
+                const trigger = document.getElementById('avatarTrigger');
+                const closeBtn = document.getElementById('closeModalBtn');
+
+                if (!modal || !trigger || !closeBtn) return;
+
+                trigger.addEventListener('click', () => {
+                    modal.style.display = 'flex';
+                });
+
+                closeBtn.addEventListener('click', () => {
+                    modal.style.display = 'none';
+                });
+
+                modal.addEventListener('click', (e) => {
+                    if (e.target === modal) modal.style.display = 'none';
+                });
+            }
+
+            // === Запуск ===
+            renderStaff();
+            loadNews();
+            initModal();
+
+            // Для красоты: обработка навигации (без перезагрузки)
+            document.querySelectorAll('.nav a').forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    document.querySelectorAll('.nav a').forEach(a => a.classList.remove('active'));
+                    this.classList.add('active');
+                    // Можно добавить переключение разделов, но по заданию оставляем как есть
+                });
+            });
+
+            // Если в будущем потребуется реальный запрос к Discord API,
+            // здесь можно разместить fetch с использованием бота/токена.
+            // Но для данной задачи используем демо-сообщения.
+        })();
+    </script>
+
+    <!-- Запасной URL для аватарки сервера (если не загрузится) -->
+    <img src="https://cdn.discordapp.com/icons/1385741587350290573/a_avatar_hash.webp?size=512" style="display:none;" onerror="this.onerror=null; document.querySelectorAll('.server-avatar, #modalAvatarImg').forEach(img => img.src='https://cdn.discordapp.com/embed/avatars/0.png');">
 </body>
 </html>
