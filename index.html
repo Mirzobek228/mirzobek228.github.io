@@ -9,12 +9,9 @@
         :root {
             --primary: #e05353;
             --primary-hover: #ff6b6b;
-            --primary-light: rgba(224, 83, 83, 0.15);
             --text-main: #f5f0f0;
-            --text-muted: #b8a9a9;
-            --border-color: rgba(255, 255, 255, 0.1);
-            --card-bg-light: rgba(255, 255, 255, 0.05);
-            --card-bg-dark: rgba(0, 0, 0, 0.3);
+            --border-color: rgba(255, 255, 255, 0.15);
+            --card-bg: rgba(0, 0, 0, 0.4);
         }
 
         * {
@@ -25,11 +22,9 @@
             scroll-behavior: smooth;
         }
 
-        /* Базовые стили текста (меняются в зависимости от темы) */
         body {
             color: var(--text-main);
             line-height: 1.6;
-            transition: background 0.5s ease, color 0.5s ease;
             position: relative;
             min-height: 100vh;
             overflow-x: hidden;
@@ -53,59 +48,22 @@
             opacity: 1;
         }
 
-        /* День (Яркий, с облаками) */
+        /* День */
         .bg-day {
-            background: 
-                linear-gradient(to bottom, rgba(135, 206, 235, 0.2), rgba(255, 255, 255, 0)),
-                url('https://www.transparenttextures.com/patterns/light-sketch.png'), /* Легкая текстура */
-                #87CEEB; /* Небесно-голубой цвет */
-            /* Добавим анимированные облака (CSS-анимация) */
-            background-image: 
-                url('https://www.transparenttextures.com/patterns/light-sketch.png'),
-                radial-gradient(circle at 20% 30%, rgba(255, 255, 255, 0.8) 0px, transparent 50px),
-                radial-gradient(circle at 80% 20%, rgba(255, 255, 255, 0.8) 0px, transparent 70px),
-                #87CEEB;
-            animation: cloudsMove 60s linear infinite;
-            background-position: 0 0, 0 0, 0 0, center;
+            background: linear-gradient(to bottom, #5bb6ff, #a1d7ff);
         }
 
-        @keyframes cloudsMove {
-            from { background-position: 0 0, 0 0, 0 0, center; }
-            to { background-position: -1000px 0, 0 0, 0 0, center; }
-        }
-
-        /* Закат (Оранжевый, медленный) */
+        /* Закат */
         .bg-sunset {
-            background: linear-gradient(to bottom, #ff7e5f, #feb47b);
-            position: relative;
-        }
-        .bg-sunset::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            width: 100%;
-            height: 40%;
-            background: linear-gradient(to top, #ff6b6b, transparent);
-            opacity: 0.7;
+            background: linear-gradient(to bottom, #ff5e62, #ff9966);
         }
 
-        /* Ночь (Темная, звезды) */
+        /* Ночь */
         .bg-night {
-            background: 
-                radial-gradient(circle at 10% 20%, rgba(255, 255, 255, 0.5) 1px, transparent 2px),
-                radial-gradient(circle at 90% 80%, rgba(255, 255, 255, 0.5) 1px, transparent 2px),
-                radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.3) 1px, transparent 3px),
-                #0f172a;
-            background-size: 200px 200px, 150px 150px, 300px 300px, cover;
-            animation: starsTwinkle 10s infinite alternate;
+            background: linear-gradient(to bottom, #090d16, #1b2735);
         }
 
-        @keyframes starsTwinkle {
-            from { opacity: 0.5; }
-            to { opacity: 1; }
-        }
-
-        /* --- Панель переключения тем --- */
+        /* --- Панель переключения тем сбоку --- */
         .theme-switcher {
             position: fixed;
             right: 20px;
@@ -113,22 +71,27 @@
             transform: translateY(-50%);
             display: flex;
             flex-direction: column;
-            gap: 15px;
+            gap: 12px;
             z-index: 200;
+            background: rgba(0, 0, 0, 0.3);
+            padding: 10px;
+            border-radius: 16px;
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--border-color);
         }
 
         .theme-btn {
-            width: 50px;
-            height: 50px;
-            border-radius: 12px;
-            border: 2px solid rgba(255, 255, 255, 0.3);
+            width: 45px;
+            height: 45px;
+            border-radius: 10px;
+            border: 2px solid transparent;
             cursor: pointer;
             transition: all 0.3s ease;
             display: flex;
             justify-content: center;
             align-items: center;
-            font-size: 1.5rem;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+            font-size: 1.3rem;
+            background: rgba(255, 255, 255, 0.1);
         }
 
         .theme-btn:hover {
@@ -136,46 +99,23 @@
             border-color: #fff;
         }
 
-        /* Стили для кнопок тем */
-        .btn-day {
-            background: linear-gradient(135deg, #87CEEB 0%, #ffffff 100%);
-            color: #f59e0b; /* Солнце */
-        }
-
-        .btn-sunset {
-            background: linear-gradient(135deg, #ff7e5f 0%, #feb47b 100%);
-            color: #fff;
-        }
-
-        .btn-night {
-            background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
-            color: #e2e8f0; /* Луна */
-        }
-
         .theme-btn.active-theme {
             border-color: var(--primary);
-            box-shadow: 0 0 15px var(--primary);
+            box-shadow: 0 0 10px var(--primary);
         }
 
-        /* --- Адаптация элементов сайта под темы --- */
-        
-        /* Хедер */
+        /* --- Шапка --- */
         header {
             position: sticky;
             top: 0;
             z-index: 100;
-            background: rgba(0, 0, 0, 0.2); /* Полупрозрачный */
+            background: rgba(0, 0, 0, 0.3);
             backdrop-filter: blur(10px);
             border-bottom: 1px solid var(--border-color);
             display: flex;
             justify-content: space-between;
             align-items: center;
             padding: 15px 5%;
-            transition: background 0.5s ease;
-        }
-        /* При наведении/скролле хедер становится чуть темнее для читаемости */
-        header.scrolled {
-            background: rgba(0, 0, 0, 0.6);
         }
 
         .logo-area {
@@ -194,7 +134,7 @@
             transition: transform 0.2s;
         }
         .server-avatar:hover { transform: scale(1.05); }
-        .server-title { font-size: 1.1rem; font-weight: 700; letter-spacing: 0.5px; color: #fff; }
+        .server-title { font-size: 1.1rem; font-weight: 700; color: #fff; }
 
         nav { display: flex; gap: 25px; }
         nav a {
@@ -206,97 +146,213 @@
         }
         nav a:hover { color: var(--primary-hover); }
 
-        /* Герой (Главный экран) */
-        .hero { padding: 100px 20px; text-align: center; }
-        .hero h1 { font-size: 3rem; margin-bottom: 15px; font-weight: 800; color: #fff; text-shadow: 0 2px 10px rgba(0,0,0,0.3); }
+        /* --- Главный экран --- */
+        .hero { padding: 90px 20px; text-align: center; }
+        .hero h1 { font-size: 2.8rem; margin-bottom: 15px; font-weight: 800; color: #fff; text-shadow: 0 2px 10px rgba(0,0,0,0.3); }
         .hero h1 span { color: var(--primary); }
-        .hero p { color: rgba(255, 255, 255, 0.9); font-size: 1.2rem; max-width: 650px; margin: 0 auto 40px auto; text-shadow: 0 1px 5px rgba(0,0,0,0.2); }
+        .hero p { color: rgba(255, 255, 255, 0.9); font-size: 1.1rem; max-width: 600px; margin: 0 auto 30px auto; }
+        
         .btn {
             display: inline-block;
-            background-color: var(--primary); color: #fff; padding: 12px 30px;
-            border-radius: 8px; text-decoration: none; font-weight: 600; font-size: 1rem;
+            background-color: var(--primary); color: #fff; padding: 10px 24px;
+            border-radius: 8px; text-decoration: none; font-weight: 600; font-size: 0.95rem;
             transition: background 0.2s, transform 0.1s;
             border: none; cursor: pointer; box-shadow: 0 4px 15px rgba(224, 83, 83, 0.4);
         }
         .btn:hover { background-color: var(--primary-hover); transform: translateY(-2px); }
 
-        /* Контейнер и Карточки */
-        .container { max-width: 1050px; margin: 0 auto; padding: 60px 20px; }
-        section { margin-bottom: 80px; }
-        section h2 { font-size: 2rem; margin-bottom: 40px; text-align: center; color: #fff; }
+        /* --- Контейнеры --- */
+        .container { max-width: 1000px; margin: 0 auto; padding: 40px 20px; }
+        section { margin-bottom: 60px; }
+        section h2 { font-size: 1.8rem; margin-bottom: 25px; text-align: center; color: #fff; }
 
-        /* Новости (стиль Discord) */
-        .news-feed { display: flex; flex-direction: column; gap: 20px; }
+        /* Новости */
         .news-card {
-            background: var(--card-bg-light);
-            backdrop-filter: blur(5px);
-            border: 1px solid var(--border-color);
-            border-radius: 12px;
-            padding: 25px;
-            display: flex;
-            gap: 20px;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-        }
-        .news-card:hover { transform: translateY(-5px); box-shadow: 0 10px 20px rgba(0,0,0,0.2); }
-        .news-author-avatar { width: 50px; height: 50px; border-radius: 12px; flex-shrink: 0; }
-        .news-content-wrap { display: flex; flex-direction: column; gap: 6px; }
-        .news-meta { display: flex; align-items: center; gap: 15px; font-size: 0.85rem; color: rgba(255,255,255,0.6); }
-        .news-author-name { color: #fff; font-weight: 600; }
-        .news-text { font-size: 1rem; color: rgba(255,255,255,0.95); }
-
-        /* Персонал */
-        .staff-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 30px; }
-        .staff-card {
-            background: var(--card-bg-light);
-            backdrop-filter: blur(5px);
-            border: 1px solid var(--border-color);
-            border-radius: 16px;
-            padding: 30px;
-            text-align: center;
-            transition: all 0.3s ease;
-            display: flex; flex-direction: column; align-items: center; gap: 10px;
-        }
-        .staff-card:hover { background: rgba(255,255,255,0.1); transform: translateY(-8px); }
-        .staff-avatar { width: 90px; height: 90px; border-radius: 24px; object-fit: cover; border: 4px solid rgba(255,255,255,0.2); }
-        .staff-name { font-weight: 700; font-size: 1.2rem; color: #fff; }
-        .staff-role { font-size: 0.9rem; color: var(--primary); font-weight: 500; }
-        .staff-id { font-size: 0.8rem; color: rgba(255,255,255,0.5); }
-
-        /* Донат */
-        .donate-grid { display: grid; grid-template-columns: 1.5fr 1fr; gap: 40px; align-items: start; }
-        .donate-box {
-            background: var(--card-bg-light);
+            background: var(--card-bg);
             backdrop-filter: blur(10px);
             border: 1px solid var(--border-color);
-            border-radius: 16px;
-            padding: 40px;
-        }
-        .donate-table h3 { color: #fff; font-size: 1.3rem; margin-bottom: 20px; }
-        .donate-table ul { list-style: none; }
-        .donate-table li { display: flex; justify-content: space-between; padding: 12px 0; border-bottom: 1px solid var(--border-color); font-size: 1rem; }
-        .donate-table li span { color: var(--primary); font-weight: 600; }
-        
-        .tier-info { margin-top: 30px; font-size: 0.95rem; color: rgba(255,255,255,0.85); }
-        .tier-info p { margin-bottom: 10px; }
-
-        .course-box {
-            background: rgba(0,0,0,0.3);
             border-radius: 12px;
-            padding: 30px;
+            padding: 20px;
+            margin-bottom: 15px;
+        }
+        .news-header { display: flex; align-items: center; gap: 10px; margin-bottom: 8px; font-size: 0.85rem; color: rgba(255,255,255,0.6); }
+        .news-content { font-size: 0.95rem; color: #fff; }
+
+        /* Персонал */
+        .staff-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 20px; }
+        .staff-card {
+            background: var(--card-bg);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 20px;
             text-align: center;
         }
-        .course-val { font-size: 2.5rem; font-weight: 800; color: #fff; margin: 10px 0; }
-        .course-rate { font-size: 1.5rem; font-weight: 700; color: #fff; margin-bottom: 5px; }
+        .staff-avatar { width: 70px; height: 70px; border-radius: 50%; object-fit: cover; margin-bottom: 10px; border: 2px solid rgba(255,255,255,0.2); }
+        .staff-name { font-weight: 600; font-size: 1.05rem; color: #fff; }
+        .staff-role { font-size: 0.85rem; color: var(--primary); font-weight: 500; margin-top: 2px; }
+        .staff-id { font-size: 0.75rem; color: rgba(255,255,255,0.5); margin-top: 6px; }
 
-        /* Модальное окно для пасхалки */
+        /* Донат */
+        .donate-box {
+            background: var(--card-bg);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 30px;
+        }
+        .donate-box ul { list-style: none; margin-bottom: 20px; }
+        .donate-box li { padding: 8px 0; border-bottom: 1px solid rgba(255,255,255,0.1); display: flex; justify-content: space-between; font-size: 0.95rem; }
+        .donate-box li span { color: var(--primary); font-weight: 600; }
+        .course-badge { background: rgba(224, 83, 83, 0.2); border: 1px solid var(--primary); padding: 10px 15px; border-radius: 8px; font-weight: 600; display: inline-block; margin-top: 10px; }
+
+        /* Модальное окно (пасхалка-тюлень) */
         .modal {
             display: none; position: fixed; z-index: 1000;
             left: 0; top: 0; width: 100%; height: 100%;
-            background-color: rgba(0,0,0,0.9);
+            background-color: rgba(0,0,0,0.85);
             justify-content: center; align-items: center;
-            backdrop-filter: blur(5px);
-            opacity: 0; transition: opacity 0.3s;
         }
-        .modal.open { display: flex; opacity: 1; }
-        .modal-content {
-            max-width: 80%; max-height: 80vh
+        .modal-content { max-width: 80%; max-height: 80vh; border-radius: 12px; border: 2px solid var(--primary); }
+
+        footer { text-align: center; padding: 25px; color: rgba(255,255,255,0.5); font-size: 0.85rem; border-top: 1px solid var(--border-color); }
+    </style>
+</head>
+<body class="night-theme">
+
+    <!-- Фоны (переключаются через скрипт) -->
+    <div class="bg-layer bg-day" id="bg-day"></div>
+    <div class="bg-layer bg-sunset" id="bg-sunset"></div>
+    <div class="bg-layer bg-night active" id="bg-night"></div>
+
+    <!-- Боковая панель с кнопками смены погоды/времени суток -->
+    <div class="theme-switcher">
+        <button class="theme-btn" onclick="setTheme('day')" title="День">☀️</button>
+        <button class="theme-btn" onclick="setTheme('sunset')" title="Закат">🌇</button>
+        <button class="theme-btn active-theme" onclick="setTheme('night')" title="Ночь">🌙</button>
+    </div>
+
+    <!-- Шапка -->
+    <header>
+        <div class="logo-area" onclick="openModal()">
+            <img src="image_859cd3.png" alt="Server Avatar" class="server-avatar">
+            <span class="server-title">Nexus Verse WPG</span>
+        </div>
+        <nav>
+            <a href="#news">Новости сервера</a>
+            <a href="#staff">Персонал</a>
+            <a href="#donate">Донат-услуги</a>
+        </nav>
+    </header>
+
+    <!-- Главный экран -->
+    <section class="hero">
+        <h1>Военно-политический проект <span>Nexus Verse</span></h1>
+        <p>Создавай свою историю, управляй державами, заключай союзы и участвуй в геополитических баталиях.</p>
+        <a href="https://discord.gg/nexusverse" target="_blank" class="btn">Присоединиться к Discord</a>
+    </section>
+
+    <div class="container">
+
+        <!-- Новости -->
+        <section id="news">
+            <h2>Новости сервера</h2>
+            <p style="text-align:center; color:rgba(255,255,255,0.6); font-size:0.85rem; margin-bottom:20px;">
+                Канал ID: <code>1385741588457590907</code>
+            </p>
+            <div class="news-card">
+                <div class="news-header">
+                    <span>📢 Nexus Verse Bot</span>
+                    <span>• Только что</span>
+                </div>
+                <div class="news-content">
+                    Добро пожаловать на наш сайт! Следите за обновлениями и бронируйте державы.
+                </div>
+            </div>
+        </section>
+
+        <!-- Персонал -->
+        <section id="staff">
+            <h2>Состав персонала</h2>
+            <div class="staff-grid">
+                <div class="staff-card">
+                    <img src="https://cdn.discordapp.com/embed/avatars/1.png" alt="Vermilion" class="staff-avatar">
+                    <div class="staff-name">Vermilion</div>
+                    <div class="staff-role">Владелец сервера</div>
+                    <div class="staff-id">ID: 747462012291776514</div>
+                </div>
+                <div class="staff-card">
+                    <img src="https://cdn.discordapp.com/embed/avatars/2.png" alt="Mirzobek" class="staff-avatar">
+                    <div class="staff-name">Mirzobek</div>
+                    <div class="staff-role">Разработчик бота</div>
+                    <div class="staff-id">ID: 1383969207196192851</div>
+                </div>
+                <div class="staff-card">
+                    <img src="https://cdn.discordapp.com/embed/avatars/3.png" alt="AytacOnan2" class="staff-avatar">
+                    <div class="staff-name">AytacOnan2</div>
+                    <div class="staff-role">Гражданин айтактауна</div>
+                    <div class="staff-id">ID: 484044030640914437</div>
+                </div>
+                <div class="staff-card">
+                    <img src="https://cdn.discordapp.com/embed/avatars/4.png" alt="Dyrm9" class="staff-avatar">
+                    <div class="staff-name">Dyrm9</div>
+                    <div class="staff-role">Дурмис</div>
+                    <div class="staff-id">ID: 1327423107648192526</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Донат -->
+        <section id="donate">
+            <h2>Донат-услуги</h2>
+            <div class="donate-box">
+                <h3 style="color:#fff; margin-bottom:15px; font-size:1.1rem;">Памятка о донат-валюте:</h3>
+                <ul>
+                    <li>Бронь на сверхдержаву <span>500 NV коинов</span></li>
+                    <li>Бронь на сильную державу <span>350 NV коинов</span></li>
+                    <li>Бронь на развитую державу <span>200 NV коинов</span></li>
+                    <li>Кастомная роль <span>180 NV коинов</span></li>
+                </ul>
+
+                <p style="font-size:0.9rem; margin-bottom:10px;">⭐ <strong>Сверхдержавы:</strong> КНР и США</p>
+                <p style="font-size:0.9rem; margin-bottom:10px;">🔥 <strong>Сильные державы:</strong> Россия, Турция, Бразилия, Великобритания, Франция, Индия</p>
+                <p style="font-size:0.9rem; margin-bottom:15px;">⚡ <strong>Развитые державы:</strong> Германия, Япония, Южная Корея, Италия, Саудовская Аравия</p>
+                <p style="font-size:0.9rem; margin-bottom:15px;">📌 <strong>Бронь на все остальные страны стоит 75 коинов</strong></p>
+
+                <div class="course-badge">
+                    Курс: 1 NV коин = 0,65 ₽
+                </div>
+            </div>
+        </section>
+
+    </div>
+
+    <!-- Модальное окно (тюлень) -->
+    <div id="imageModal" class="modal" onclick="closeModal()">
+        <img class="modal-content" src="image_859cd3.png" alt="Secret Seal">
+    </div>
+
+    <footer>
+        <p>&copy; 2026 Nexus Verse WPG. Все права защищены.</p>
+    </footer>
+
+    <script>
+        // Переключение тем (День / Закат / Ночь)
+        function setTheme(theme) {
+            document.querySelectorAll('.bg-layer').forEach(el => el.classList.remove('active'));
+            document.querySelectorAll('.theme-btn').forEach(el => el.classList.remove('active-theme'));
+
+            document.getElementById('bg-' + theme).classList.add('active');
+            event.currentTarget.classList.add('active-theme');
+        }
+
+        // Модальное окно с аватаркой-тюленем
+        function openModal() {
+            document.getElementById('imageModal').style.display = 'flex';
+        }
+        function closeModal() {
+            document.getElementById('imageModal').style.display = 'none';
+        }
+    </script>
+</body>
+</html>
