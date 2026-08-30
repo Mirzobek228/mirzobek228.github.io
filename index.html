@@ -3,623 +3,424 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nexus Verse WPG - Военно-политический сервер</title>
+    <title>Nexus Verse WPG</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
-        /* CSS переменные для тем */
         :root {
-            --primary: #ff3333;
-            --primary-light: #ff6666;
-            --primary-dark: #cc0000;
-            --bg-gradient: linear-gradient(135deg, #1a0000 0%, #4a0000 25%, #2a0000 50%, #1a0000 100%);
-            --card-bg: rgba(255, 0, 0, 0.15);
-            --border: rgba(255, 0, 0, 0.4);
-            --text: #ffffff;
-            --text-secondary: #ffcccc;
-            --glow: rgba(255, 0, 0, 0.5);
-            --shadow: rgba(255, 0, 0, 0.3);
+            --bg-color: #161213;
+            --card-bg: #221a1c;
+            --card-hover: #2d2225;
+            --primary: #e05353;
+            --primary-hover: #ff6b6b;
+            --primary-light: rgba(224, 83, 83, 0.15);
+            --text-main: #f5f0f0;
+            --text-muted: #b8a9a9;
+            --border-color: #3b2d30;
         }
-        
-        /* Тема: Синяя */
-        [data-theme="blue"] {
-            --primary: #3333ff;
-            --primary-light: #6666ff;
-            --primary-dark: #0000cc;
-            --bg-gradient: linear-gradient(135deg, #00001a 0%, #00004a 25%, #00002a 50%, #00001a 100%);
-            --card-bg: rgba(0, 0, 255, 0.15);
-            --border: rgba(0, 0, 255, 0.4);
-            --text: #ffffff;
-            --text-secondary: #ccccff;
-            --glow: rgba(0, 0, 255, 0.5);
-            --shadow: rgba(0, 0, 255, 0.3);
-        }
-        
-        /* Тема: Жёлтая */
-        [data-theme="yellow"] {
-            --primary: #ffaa00;
-            --primary-light: #ffcc33;
-            --primary-dark: #cc8800;
-            --bg-gradient: linear-gradient(135deg, #1a1a00 0%, #4a4a00 25%, #2a2a00 50%, #1a1a00 100%);
-            --card-bg: rgba(255, 170, 0, 0.15);
-            --border: rgba(255, 170, 0, 0.4);
-            --text: #ffffff;
-            --text-secondary: #ffeecc;
-            --glow: rgba(255, 170, 0, 0.5);
-            --shadow: rgba(255, 170, 0, 0.3);
-        }
-        
+
         * {
+            box-sizing: border-box;
             margin: 0;
             padding: 0;
-            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+            scroll-behavior: smooth;
         }
-        
+
         body {
-            font-family: 'Arial', sans-serif;
-            background: var(--bg-gradient);
-            color: var(--text);
-            min-height: 100vh;
-            transition: all 0.5s ease;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            line-height: 1.6;
         }
-        
-        /* Анимированный фон */
-        .background-animation {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: 
-                radial-gradient(circle at 20% 50%, var(--card-bg) 0%, transparent 50%),
-                radial-gradient(circle at 80% 50%, var(--card-bg) 0%, transparent 50%);
-            z-index: -1;
-            animation: pulse 4s ease-in-out infinite;
-            pointer-events: none;
-        }
-        
-        @keyframes pulse {
-            0%, 100% { opacity: 0.8; }
-            50% { opacity: 1; }
-        }
-        
-        /* Шапка */
-        .header {
-            text-align: center;
-            padding: 30px 20px;
-            position: relative;
-        }
-        
-        .logo-container {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            margin-bottom: 20px;
-        }
-        
-        .logo-img {
-            width: 100px;
-            height: 100px;
-            cursor: pointer;
-            transition: all 0.5s ease;
-            border-radius: 50%;
-            border: 3px solid var(--primary);
-            box-shadow: 0 0 30px var(--glow);
-        }
-        
-        .logo-img:hover {
-            transform: scale(1.1);
-            box-shadow: 0 0 50px var(--glow);
-        }
-        
-        .logo-text {
-            font-size: 3.5em;
-            font-weight: bold;
-            text-transform: uppercase;
-            background: linear-gradient(45deg, var(--primary), var(--primary-light), var(--primary-dark), var(--primary-light));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            animation: glow 3s ease-in-out infinite;
-            letter-spacing: 3px;
-        }
-        
-        @keyframes glow {
-            0%, 100% { filter: drop-shadow(0 0 10px var(--glow)); }
-            50% { filter: drop-shadow(0 0 25px var(--glow)); }
-        }
-        
-        .subtitle {
-            font-size: 1.3em;
-            color: var(--text-secondary);
-            margin-top: 10px;
-            letter-spacing: 2px;
-        }
-        
-        /* Переключатель тем */
-        .theme-switcher {
-            display: flex;
-            justify-content: center;
-            gap: 15px;
-            margin: 20px 0;
-        }
-        
-        .theme-btn {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            border: 3px solid var(--text);
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-        
-        .theme-btn:hover {
-            transform: scale(1.2);
-        }
-        
-        .theme-red {
-            background: #ff3333;
-        }
-        
-        .theme-blue {
-            background: #3333ff;
-        }
-        
-        .theme-yellow {
-            background: #ffaa00;
-        }
-        
-        /* Меню навигации */
-        .menu {
-            display: flex;
-            justify-content: center;
-            gap: 10px;
-            padding: 20px;
-            flex-wrap: wrap;
-            background: rgba(0, 0, 0, 0.3);
-            backdrop-filter: blur(10px);
+
+        /* Навигация */
+        header {
             position: sticky;
             top: 0;
             z-index: 100;
+            background: rgba(22, 18, 19, 0.85);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--border-color);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 5%;
         }
-        
-        .menu-btn {
-            padding: 10px 25px;
-            background: var(--card-bg);
-            border: 2px solid var(--border);
-            border-radius: 25px;
-            color: var(--text);
+
+        .logo-area {
+            display: flex;
+            align-items: center;
+            gap: 15px;
             cursor: pointer;
-            font-size: 1em;
-            transition: all 0.3s ease;
-            text-transform: uppercase;
-            letter-spacing: 1px;
         }
-        
-        .menu-btn:hover {
-            background: var(--primary);
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px var(--shadow);
+
+        .server-avatar {
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid var(--primary);
+            transition: transform 0.2s;
         }
-        
-        .menu-btn.active {
-            background: var(--primary);
-            border-color: var(--primary-light);
+
+        .server-avatar:hover {
+            transform: scale(1.05);
         }
-        
-        /* Контейнер */
+
+        .server-title {
+            font-size: 1.1rem;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+        }
+
+        nav {
+            display: flex;
+            gap: 25px;
+        }
+
+        nav a {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.95rem;
+            transition: color 0.2s;
+        }
+
+        nav a:hover {
+            color: var(--primary-hover);
+        }
+
+        /* Главный экран (Hero) */
+        .hero {
+            padding: 80px 20px;
+            text-align: center;
+            background: radial-gradient(circle at center, rgba(224, 83, 83, 0.08) 0%, transparent 70%);
+        }
+
+        .hero h1 {
+            font-size: 2.8rem;
+            margin-bottom: 15px;
+            font-weight: 700;
+        }
+
+        .hero h1 span {
+            color: var(--primary);
+        }
+
+        .hero p {
+            color: var(--text-muted);
+            font-size: 1.1rem;
+            max-width: 600px;
+            margin: 0 auto 30px auto;
+        }
+
+        /* Кнопки */
+        .btn {
+            display: inline-block;
+            background-color: var(--primary);
+            color: #fff;
+            padding: 10px 22px;
+            border-radius: 6px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.95rem;
+            transition: background 0.2s, transform 0.1s;
+            border: none;
+            cursor: pointer;
+        }
+
+        .btn:hover {
+            background-color: var(--primary-hover);
+        }
+
+        .btn:active {
+            transform: scale(0.98);
+        }
+
+        /* Основной контейнер */
         .container {
-            max-width: 1200px;
+            max-width: 1000px;
             margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        section {
+            margin-bottom: 60px;
+        }
+
+        section h2 {
+            font-size: 1.8rem;
+            margin-bottom: 25px;
+            border-left: 4px solid var(--primary);
+            padding-left: 12px;
+        }
+
+        /* Новости / Сообщения Discord */
+        .news-card {
+            background-color: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
             padding: 20px;
+            margin-bottom: 15px;
         }
-        
-        /* Секции */
-        .section {
-            display: none;
-            animation: fadeIn 0.5s ease;
-        }
-        
-        .section.active {
-            display: block;
-        }
-        
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-                transform: translateY(20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-        
-        /* Новости */
-        .news-item {
-            background: var(--card-bg);
-            border: 1px solid var(--border);
-            border-radius: 15px;
-            padding: 25px;
-            margin: 20px 0;
-            transition: all 0.3s ease;
-        }
-        
-        .news-item:hover {
-            transform: translateX(10px);
-            border-color: var(--primary);
-            box-shadow: 0 5px 20px var(--shadow);
-        }
-        
-        .news-date {
-            color: var(--text-secondary);
-            font-size: 0.9em;
+
+        .news-header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
             margin-bottom: 10px;
+            font-size: 0.85rem;
+            color: var(--text-muted);
         }
-        
-        .news-title {
-            color: var(--primary-light);
-            font-size: 1.5em;
-            margin-bottom: 10px;
+
+        .news-content {
+            font-size: 0.95rem;
+            color: var(--text-main);
         }
-        
+
         /* Персонал */
         .staff-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 25px;
-            padding: 20px 0;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 20px;
         }
-        
+
         .staff-card {
-            background: var(--card-bg);
-            border: 1px solid var(--border);
-            border-radius: 15px;
-            padding: 30px;
-            text-align: center;
-            transition: all 0.3s ease;
-        }
-        
-        .staff-card:hover {
-            transform: translateY(-5px);
-            border-color: var(--primary);
-            box-shadow: 0 10px 30px var(--shadow);
-        }
-        
-        .staff-avatar {
-            width: 80px;
-            height: 80px;
-            border-radius: 50%;
-            background: var(--primary);
-            margin: 0 auto 15px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-size: 2em;
-            font-weight: bold;
-            border: 3px solid var(--primary-light);
-        }
-        
-        .staff-name {
-            font-size: 1.3em;
-            font-weight: bold;
-            color: var(--primary-light);
-            margin-bottom: 5px;
-        }
-        
-        .staff-role {
-            color: var(--text-secondary);
-            font-size: 0.9em;
-        }
-        
-        .staff-id {
-            color: var(--text-secondary);
-            font-size: 0.8em;
-            margin-top: 10px;
-            opacity: 0.7;
-        }
-        
-        /* Кнопка Discord */
-        .btn-discord {
-            display: inline-block;
-            padding: 15px 40px;
-            background: var(--primary);
-            color: white;
-            text-decoration: none;
-            border-radius: 50px;
-            font-size: 1.1em;
-            font-weight: bold;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            transition: all 0.3s ease;
-            border: 2px solid var(--primary-light);
-            box-shadow: 0 5px 15px var(--shadow);
-            cursor: pointer;
-        }
-        
-        .btn-discord:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 10px 25px var(--shadow);
-            background: var(--primary-dark);
-        }
-        
-        /* Виджет Discord */
-        .discord-widget {
-            background: rgba(0, 0, 0, 0.5);
-            border: 2px solid var(--primary);
-            border-radius: 20px;
-            padding: 30px;
-            margin: 30px 0;
-            box-shadow: 0 0 30px var(--shadow);
-        }
-        
-        .widget-container {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-        
-        iframe {
-            border: none;
+            background-color: var(--card-bg);
+            border: 1px solid var(--border-color);
             border-radius: 10px;
-            width: 100%;
-            max-width: 350px;
-            height: 500px;
-        }
-        
-        /* Футер */
-        .footer {
+            padding: 20px;
             text-align: center;
-            padding: 30px 20px;
-            background: rgba(0, 0, 0, 0.5);
-            margin-top: 50px;
-            border-top: 2px solid var(--primary);
+            transition: background 0.2s;
         }
-        
-        /* Модальное окно с тюленем */
+
+        .staff-card:hover {
+            background-color: var(--card-hover);
+        }
+
+        .staff-avatar {
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-bottom: 12px;
+            border: 2px solid var(--border-color);
+        }
+
+        .staff-name {
+            font-weight: 600;
+            font-size: 1.05rem;
+            margin-bottom: 4px;
+        }
+
+        .staff-role {
+            font-size: 0.85rem;
+            color: var(--primary);
+            font-weight: 500;
+        }
+
+        .staff-id {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            margin-top: 6px;
+        }
+
+        /* Донат памятка */
+        .donate-box {
+            background-color: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            padding: 30px;
+        }
+
+        .donate-box h3 {
+            color: var(--primary-hover);
+            margin: 20px 0 10px 0;
+            font-size: 1.2rem;
+        }
+
+        .donate-box ul {
+            list-style: none;
+            margin-bottom: 20px;
+        }
+
+        .donate-box li {
+            padding: 8px 0;
+            border-bottom: 1px solid rgba(255,255,255,0.03);
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.95rem;
+        }
+
+        .donate-box li span {
+            color: var(--primary);
+            font-weight: 600;
+        }
+
+        .course-badge {
+            background-color: var(--primary-light);
+            border: 1px solid var(--primary);
+            padding: 12px 20px;
+            border-radius: 8px;
+            font-weight: 600;
+            display: inline-block;
+            margin-top: 15px;
+        }
+
+        /* Модальное окно для пасхалки / картинки */
         .modal {
             display: none;
             position: fixed;
-            top: 0;
+            z-index: 1000;
             left: 0;
+            top: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0, 0, 0, 0.8);
-            z-index: 1000;
+            background-color: rgba(0,0,0,0.8);
             justify-content: center;
             align-items: center;
         }
-        
-        .modal.active {
-            display: flex;
-        }
-        
+
         .modal-content {
             max-width: 90%;
-            max-height: 90%;
+            max-height: 90vh;
+            border-radius: 10px;
+            border: 2px solid var(--primary);
         }
-        
-        .modal-content img {
-            width: 100%;
-            height: auto;
-            border-radius: 20px;
-            border: 3px solid var(--primary);
-        }
-        
-        .close-modal {
-            position: absolute;
-            top: 20px;
-            right: 30px;
-            color: white;
-            font-size: 3em;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-        
-        .close-modal:hover {
-            transform: scale(1.2);
-            color: var(--primary);
+
+        footer {
+            text-align: center;
+            padding: 30px;
+            color: var(--text-muted);
+            font-size: 0.85rem;
+            border-top: 1px solid var(--border-color);
         }
     </style>
 </head>
 <body>
-    <div class="background-animation"></div>
-    
-    <!-- Шапка -->
-    <div class="header">
-        <div class="logo-container">
-            <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100'%3E%3Ccircle cx='50' cy='50' r='45' fill='%23ff3333'/%3E%3Ctext x='50' y='65' font-size='40' text-anchor='middle' fill='white' font-weight='bold'%3ENV%3C/text%3E%3C/svg%3E" 
-                 alt="Nexus Verse Logo" 
-                 class="logo-img" 
-                 id="logoImg"
-                 onclick="toggleSeal()">
+
+    <header>
+        <div class="logo-area" onclick="openModal()">
+            <img src="https://cdn.discordapp.com/embed/avatars/0.png" alt="Server Avatar" class="server-avatar" id="serverAvatarImg">
+            <span class="server-title">Nexus Verse WPG</span>
         </div>
-        <div class="logo-text">Nexus Verse WPG</div>
-        <div class="subtitle">Военно-политический сервер Discord</div>
-        
-        <!-- Переключатель тем -->
-        <div class="theme-switcher">
-            <div class="theme-btn theme-red" onclick="changeTheme('red')" title="Красная тема"></div>
-            <div class="theme-btn theme-blue" onclick="changeTheme('blue')" title="Синяя тема"></div>
-            <div class="theme-btn theme-yellow" onclick="changeTheme('yellow')" title="Жёлтая тема"></div>
-        </div>
-    </div>
-    
-    <!-- Меню навигации -->
-    <div class="menu">
-        <button class="menu-btn active" onclick="showSection('news')">📰 Новости сервера</button>
-        <button class="menu-btn" onclick="showSection('staff')">👥 Персонал</button>
-        <button class="menu-btn" onclick="showSection('about')">ℹ️ О сервере</button>
-        <button class="menu-btn" onclick="showSection('discord')">💬 Discord</button>
-    </div>
-    
+        <nav>
+            <a href="#news">Новости сервера</a>
+            <a href="#staff">Персонал</a>
+            <a href="#donate">Донат-услуги</a>
+        </nav>
+    </header>
+
+    <section class="hero">
+        <h1>Военно-политический проект <span>Nexus Verse</span></h1>
+        <p>Создавай свою историю, управляй державами, заключай союзы и участвуй в геополитических баталиях.</p>
+        <a href="https://discord.gg/nexusverse" target="_blank" class="btn">Присоединиться к Discord</a>
+    </section>
+
     <div class="container">
-        <!-- Секция новостей -->
-        <div id="news" class="section active">
-            <h2 style="color: var(--primary-light); text-align: center; margin-bottom: 30px;">📰 Новости сервера</h2>
+
+        <section id="news">
+            <h2>Новости сервера</h2>
+            <p style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 20px;">
+                Трансляция сообщений из канала ID: <code>1385741588457590907</code>
+            </p>
             
-            <div class="news-item">
-                <div class="news-date">30 августа 2026</div>
-                <div class="news-title">🚀 Запуск сайта Nexus Verse WPG</div>
-                <p>Мы рады сообщить о запуске официального сайта нашего сервера! Теперь вся информация будет доступна здесь.</p>
+            <div class="news-card">
+                <div class="news-header">
+                    <span>📢 Официальное объявление Nexus Verse</span>
+                    <span>• Только что</span>
+                </div>
+                <div class="news-content">
+                    Добро пожаловать на обновленный военно-политический сервер Nexus Verse WPG! Следите за новостями и бронируйте державы через наш сайт и Discord.
+                </div>
             </div>
-            
-            <div class="news-item">
-                <div class="news-date">29 августа 2026</div>
-                <div class="news-title">⚔️ Новые военные операции</div>
-                <p>Готовятся новые военные операции. Следите за обновлениями в Discord!</p>
+
+            <div class="news-card">
+                <div class="news-header">
+                    <span>⚙️ Обновление системы</span>
+                    <span>• Недавно</span>
+                </div>
+                <div class="news-content">
+                    Бот сервера получил новые функции автоматизации геополитических исков и экономических расчетов.
+                </div>
             </div>
-            
-            <div class="news-item">
-                <div class="news-date">28 августа 2026</div>
-                <div class="news-title">🏛️ Политические реформы</div>
-                <p>Планируются политические реформы на сервере. Ваше мнение важно!</p>
-            </div>
-        </div>
-        
-        <!-- Секция персонала -->
-        <div id="staff" class="section">
-            <h2 style="color: var(--primary-light); text-align: center; margin-bottom: 30px;">👥 Персонал сервера</h2>
-            
+        </section>
+
+        <section id="staff">
+            <h2>Состав персонала</h2>
             <div class="staff-grid">
+                
                 <div class="staff-card">
-                    <div class="staff-avatar">👑</div>
-                    <div class="staff-name">Владелец Nexus Verse</div>
+                    <img src="https://cdn.discordapp.com/embed/avatars/1.png" alt="Vermilion" class="staff-avatar">
+                    <div class="staff-name">Vermilion</div>
                     <div class="staff-role">Владелец сервера</div>
                     <div class="staff-id">ID: 747462012291776514</div>
                 </div>
-                
+
                 <div class="staff-card">
-                    <div class="staff-avatar">🤖</div>
-                    <div class="staff-name">Разработчик бота</div>
-                    <div class="staff-role">Разработчик</div>
+                    <img src="https://cdn.discordapp.com/embed/avatars/2.png" alt="Mirzobek" class="staff-avatar">
+                    <div class="staff-name">Mirzobek</div>
+                    <div class="staff-role">Разработчик бота</div>
                     <div class="staff-id">ID: 1383969207196192851</div>
                 </div>
-                
+
                 <div class="staff-card">
-                    <div class="staff-avatar">🛠️</div>
-                    <div class="staff-name">Крутой айтек</div>
-                    <div class="staff-role">Житель Айтактауна</div>
+                    <img src="https://cdn.discordapp.com/embed/avatars/3.png" alt="AytacOnan2" class="staff-avatar">
+                    <div class="staff-name">AytacOnan2</div>
+                    <div class="staff-role">Гражданин айтактауна</div>
                     <div class="staff-id">ID: 484044030640914437</div>
                 </div>
-                
+
                 <div class="staff-card">
-                    <div class="staff-avatar">🌊</div>
-                    <div class="staff-name">Дурмис</div>
-                    <div class="staff-role">Участник</div>
+                    <img src="https://cdn.discordapp.com/embed/avatars/4.png" alt="Dyrm9" class="staff-avatar">
+                    <div class="staff-name">Dyrm9</div>
+                    <div class="staff-role">Дурмис</div>
                     <div class="staff-id">ID: 1327423107648192526</div>
                 </div>
+
             </div>
-        </div>
-        
-        <!-- Секция о сервере -->
-        <div id="about" class="section">
-            <h2 style="color: var(--primary-light); text-align: center; margin-bottom: 30px;">ℹ️ О сервере</h2>
-            
-            <div class="news-item">
-                <h3 style="color: var(--primary-light); margin-bottom: 15px;">⚔️ Военная стратегия</h3>
-                <p>Разрабатывайте военные доктрины, участвуйте в стратегических операциях и командуйте войсками в масштабных конфликтах.</p>
-            </div>
-            
-            <div class="news-item">
-                <h3 style="color: var(--primary-light); margin-bottom: 15px;">🏛️ Политическая система</h3>
-                <p>Создавайте партии, участвуйте в выборах, формируйте правительства и влияйте на политическую жизнь сервера.</p>
-            </div>
-            
-            <div class="news-item">
-                <h3 style="color: var(--primary-light); margin-bottom: 15px;">🌍 Глобальные события</h3>
-                <p>Участвуйте в международных саммитах, заключайте союзы и ведите дипломатические переговоры.</p>
-            </div>
-        </div>
-        
-        <!-- Секция Discord -->
-        <div id="discord" class="section">
-            <h2 style="color: var(--primary-light); text-align: center; margin-bottom: 30px;">💬 Наш Discord</h2>
-            
-            <div class="discord-widget">
-                <div class="widget-container">
-                    <iframe src="https://discord.com/widget?id=1385741587350290573&theme=dark" 
-                            width="350" 
-                            height="500" 
-                            allowtransparency="true" 
-                            frameborder="0" 
-                            sandbox="allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts">
-                    </iframe>
+        </section>
+
+        <section id="donate">
+            <h2>Донат-услуги</h2>
+            <div class="donate-box">
+                <p style="margin-bottom: 15px;">На нашем сервере доступны эксклюзивные донат услуги для усиления вашего влияния:</p>
+                
+                <ul>
+                    <li>Бронь на сверхдержаву <span>500 NV коинов</span></li>
+                    <li>Бронь на сильную державу <span>350 NV коинов</span></li>
+                    <li>Бронь на развитую державу <span>200 NV коинов</span></li>
+                    <li>Кастомная роль <span>180 NV коинов</span></li>
+                </ul>
+
+                <h3>Классификация держав:</h3>
+                <p style="color: var(--text-muted); font-size: 0.95rem; margin-bottom: 8px;">⭐ <strong>Сверхдержавы:</strong> КНР и США</p>
+                <p style="color: var(--text-muted); font-size: 0.95rem; margin-bottom: 8px;">🔥 <strong>Сильные державы:</strong> Россия, Турция, Бразилия, Великобритания, Франция, Индия</p>
+                <p style="color: var(--text-muted); font-size: 0.95rem; margin-bottom: 15px;">⚡ <strong>Развитые державы:</strong> Германия, Япония, Южная Корея, Италия, Саудовская Аравия</p>
+
+                <p style="font-size: 0.95rem; margin-bottom: 15px;">📌 <strong>Бронь на все остальные страны стоит 75 коинов</strong></p>
+
+                <div class="course-badge">
+                    Курс валюты: 1 NV коин = 0,65 ₽
                 </div>
             </div>
-            
-            <div style="text-align: center; margin-top: 20px;">
-                <a href="https://discord.gg/ваш-пригласительный-код" class="btn-discord">⚔️ Присоединиться к серверу</a>
-            </div>
-        </div>
+        </section>
+
     </div>
-    
-    <!-- Модальное окно с тюленем -->
-    <div id="sealModal" class="modal" onclick="closeSeal()">
-        <span class="close-modal">&times;</span>
-        <div class="modal-content">
-            <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='500' height='500'%3E%3Ccircle cx='250' cy='250' r='200' fill='%23808080'/%3E%3Ccircle cx='180' cy='200' r='15' fill='black'/%3E%3Ccircle cx='320' cy='200' r='15' fill='black'/%3E%3Cellipse cx='250' cy='250' rx='20' ry='15' fill='black'/%3E%3Cpath d='M 200 300 Q 250 350 300 300' stroke='black' stroke-width='5' fill='none'/%3E%3C/svg%3E" 
-                 alt="Тюлень">
-        </div>
+
+    <div id="imageModal" class="modal" onclick="closeModal()">
+        <img class="modal-content" src="image_859cd3.png" alt="Secret Seal">
     </div>
-    
-    <!-- Футер -->
-    <div class="footer">
-        <p>© 2026 Nexus Verse WPG - Все права защищены</p>
-        <p style="margin-top: 10px; color: var(--text-secondary);">Создано с ❤️ для нашего сообщества</p>
-    </div>
-    
+
+    <footer>
+        <p>&copy; 2026 Nexus Verse WPG. Все права защищены.</p>
+    </footer>
+
     <script>
-        // Переключение секций
-        function showSection(sectionName) {
-            // Скрыть все секции
-            const sections = document.querySelectorAll('.section');
-            sections.forEach(section => {
-                section.classList.remove('active');
-            });
-            
-            // Показать нужную секцию
-            document.getElementById(sectionName).classList.add('active');
-            
-            // Обновить активную кнопку меню
-            const buttons = document.querySelectorAll('.menu-btn');
-            buttons.forEach(btn => {
-                btn.classList.remove('active');
-            });
-            event.target.classList.add('active');
+        function openModal() {
+            document.getElementById('imageModal').style.display = 'flex';
         }
-        
-        // Переключение темы
-        function changeTheme(theme) {
-            if (theme === 'red') {
-                document.body.removeAttribute('data-theme');
-            } else if (theme === 'blue') {
-                document.body.setAttribute('data-theme', 'blue');
-            } else if (theme === 'yellow') {
-                document.body.setAttribute('data-theme', 'yellow');
-            }
-            
-            // Сохранить тему в localStorage
-            localStorage.setItem('theme', theme);
-        }
-        
-        // Загрузка сохранённой темы
-        window.addEventListener('load', () => {
-            const savedTheme = localStorage.getItem('theme');
-            if (savedTheme) {
-                changeTheme(savedTheme);
-            }
-        });
-        
-        // Тюлень вместо эмблемы
-        let isSeal = false;
-        const originalLogo = document.getElementById('logoImg').src;
-        
-        function toggleSeal() {
-            const modal = document.getElementById('sealModal');
-            modal.classList.add('active');
-        }
-        
-        function closeSeal() {
-            const modal = document.getElementById('sealModal');
-            modal.classList.remove('active');
+        function closeModal() {
+            document.getElementById('imageModal').style.display = 'none';
         }
     </script>
 </body>
