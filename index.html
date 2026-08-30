@@ -92,6 +92,7 @@
             transition: all 0.3s ease;
             border: 2px solid #ff4444;
             box-shadow: 0 5px 15px rgba(255, 0, 0, 0.3);
+            cursor: pointer;
         }
         
         .btn-discord:hover {
@@ -160,6 +161,8 @@
             display: flex;
             justify-content: center;
             align-items: center;
+            flex-wrap: wrap;
+            gap: 30px;
         }
         
         iframe {
@@ -167,17 +170,25 @@
             border-radius: 10px;
             background: #1a0000;
             width: 100%;
-            max-width: 800px;
+            max-width: 350px;
             height: 500px;
         }
         
-        /* Дополнительный виджет для конкретного канала */
+        /* Виджет канала */
         .channel-widget {
             background: rgba(255, 0, 0, 0.1);
             border: 1px solid rgba(255, 0, 0, 0.5);
             border-radius: 15px;
             padding: 20px;
             margin-top: 30px;
+            width: 100%;
+        }
+        
+        .channel-widget h3 {
+            color: #ff4444;
+            text-align: center;
+            margin-bottom: 15px;
+            font-size: 1.5em;
         }
         
         /* Футер */
@@ -230,6 +241,11 @@
             iframe {
                 height: 400px;
             }
+            
+            .btn-discord {
+                padding: 12px 25px;
+                font-size: 1em;
+            }
         }
     </style>
 </head>
@@ -240,7 +256,7 @@
     <div class="header fade-in">
         <div class="logo">Nexus Verse WPG</div>
         <div class="subtitle">Военно-политический сервер Discord</div>
-        <a href="https://discord.gg/ваш-пригласительный-код" class="btn-discord">Присоединиться</a>
+        <a href="https://discord.gg/ваш-пригласительный-код" class="btn-discord">⚔️ Присоединиться</a>
     </div>
     
     <div class="container">
@@ -266,27 +282,25 @@
         <div class="discord-widget fade-in">
             <h2>Наш Discord сервер</h2>
             <div class="widget-container">
-                <!-- Виджет всего сервера -->
-                <iframe src="https://discord.com/widget?id=1385741588457590907&theme=dark" 
+                <!-- Основной виджет сервера -->
+                <iframe src="https://discord.com/widget?id=1385741587350290573&theme=dark" 
                         width="350" 
                         height="500" 
                         allowtransparency="true" 
                         frameborder="0" 
                         sandbox="allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts">
                 </iframe>
-            </div>
-            
-            <!-- Дополнительный виджет для конкретного канала -->
-            <div class="channel-widget">
-                <h3 style="color: #ff4444; text-align: center; margin-bottom: 15px;">
-                    📢 Актуальные объявления
-                </h3>
-                <!-- Виджет конкретного канала -->
-                <iframe src="https://discord.com/channels/1385741588457590907" ...>
-                        width="100%" 
-                        height="300" 
-                        style="border: none; border-radius: 10px;">
-                </iframe>
+                
+                <!-- Дополнительный виджет -->
+                <div class="channel-widget" style="max-width: 400px;">
+                    <h3>📢 Онлайн сервера</h3>
+                    <p style="color: #ffcccc; text-align: center;">
+                        Присоединяйтесь к нашему сообществу прямо сейчас!
+                    </p>
+                    <div style="text-align: center; margin-top: 20px;">
+                        <a href="https://discord.gg/ваш-пригласительный-код" class="btn-discord">Войти на сервер</a>
+                    </div>
+                </div>
             </div>
         </div>
         
@@ -294,7 +308,7 @@
         <div class="info-card fade-in" style="text-align: center; margin: 30px 0;">
             <h3>Готовы начать?</h3>
             <p>Присоединяйтесь к Nexus Verse WPG и станьте частью увлекательного мира военной стратегии и политических интриг!</p>
-            <a href="https://discord.gg/ваш-пригласительный-код" class="btn-discord">Вступить сейчас</a>
+            <a href="https://discord.gg/https://discord.gg/bywzZWRKP" class="btn-discord">Вступить сейчас</a>
         </div>
     </div>
     
