@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Nexus Verse WPG • Военно-политический сервер</title>
-    <!-- Font Awesome для иконок -->
+    <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
         * {
@@ -23,7 +23,7 @@
             position: relative;
         }
 
-        /* Звёзды поверх градиента */
+        /* Звёзды */
         body::before {
             content: '';
             position: fixed;
@@ -59,18 +59,18 @@
             z-index: 0;
         }
 
-        /* Солнце (декоративное) */
+        /* Солнце */
         body::after {
             content: '';
             position: fixed;
             bottom: 5%;
             right: 5%;
-            width: 150px;
-            height: 150px;
+            width: 180px;
+            height: 180px;
             background: radial-gradient(circle, #ffd966 0%, #ff9f4a 50%, #ff6a33 80%, transparent 100%);
             border-radius: 50%;
-            filter: blur(2px);
-            opacity: 0.4;
+            filter: blur(3px);
+            opacity: 0.35;
             pointer-events: none;
             z-index: 0;
         }
@@ -199,8 +199,8 @@
             box-shadow: 0 2px 12px rgba(200, 60, 20, 0.6);
         }
 
-        /* ===== КАРТОЧКА НОВОСТЕЙ ===== */
-        .news-section {
+        /* ===== ОБНОВЛЕНИЯ СЕРВЕРА (вместо новостей) ===== */
+        .updates-section {
             background: rgba(25, 8, 4, 0.6);
             backdrop-filter: blur(8px);
             border-radius: 36px;
@@ -210,7 +210,7 @@
             box-shadow: 0 15px 40px rgba(0,0,0,0.5);
         }
 
-        .news-header {
+        .updates-header {
             display: flex;
             align-items: center;
             gap: 12px;
@@ -218,77 +218,56 @@
             padding-bottom: 0.8rem;
             margin-bottom: 1.5rem;
         }
-        .news-header i {
+        .updates-header i {
             font-size: 2rem;
             color: #ff8a6a;
         }
-        .news-header h2 {
+        .updates-header h2 {
             font-weight: 500;
             font-size: 1.8rem;
             letter-spacing: 1px;
         }
 
-        /* БЛОК СООБЩЕНИЙ (имитация публикаций) */
-        .news-feed {
-            display: flex;
-            flex-direction: column;
+        .updates-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
             gap: 1.2rem;
-            max-height: 500px;
-            overflow-y: auto;
-            padding-right: 6px;
         }
 
-        .news-feed::-webkit-scrollbar {
-            width: 6px;
-        }
-        .news-feed::-webkit-scrollbar-track {
-            background: rgba(60, 20, 10, 0.3);
-            border-radius: 10px;
-        }
-        .news-feed::-webkit-scrollbar-thumb {
-            background: #d64b2a;
-            border-radius: 10px;
-        }
-
-        .news-item {
+        .update-card {
             background: rgba(70, 25, 15, 0.4);
             backdrop-filter: blur(2px);
-            padding: 1rem 1.5rem;
-            border-radius: 30px;
+            padding: 1.2rem 1.5rem;
+            border-radius: 28px;
             border-left: 5px solid #f06a4a;
             transition: 0.15s;
             box-shadow: 0 2px 8px rgba(0,0,0,0.2);
         }
 
-        .news-item:hover {
+        .update-card:hover {
             background: rgba(100, 40, 25, 0.5);
             border-left-color: #ff9a7a;
+            transform: translateY(-2px);
         }
 
-        .news-meta {
-            display: flex;
-            justify-content: space-between;
-            font-size: 0.85rem;
-            opacity: 0.75;
+        .update-date {
+            font-size: 0.8rem;
+            opacity: 0.7;
             margin-bottom: 6px;
         }
-        .news-meta i {
+        .update-date i {
             margin-right: 6px;
         }
 
-        .news-content {
-            font-size: 1.05rem;
-            line-height: 1.5;
+        .update-title {
+            font-weight: 600;
+            font-size: 1.1rem;
+            color: #ffd6c0;
         }
-        .news-content strong {
-            color: #ffb79a;
-        }
-
-        .empty-news {
-            padding: 1.8rem;
-            text-align: center;
-            opacity: 0.6;
-            font-style: italic;
+        .update-desc {
+            font-size: 0.95rem;
+            opacity: 0.9;
+            margin-top: 4px;
         }
 
         /* ===== ПЕРСОНАЛ ===== */
@@ -421,7 +400,7 @@
             border-radius: 60px;
         }
 
-        /* ===== МОДАЛКА (АВАТАР) ===== */
+        /* ===== МОДАЛКА ===== */
         .modal-overlay {
             position: fixed;
             inset: 0;
@@ -497,7 +476,7 @@
                 font-size: 0.9rem;
                 padding: 0.2rem 0.9rem;
             }
-            .news-section, .staff-section, .donate-section {
+            .updates-section, .staff-section, .donate-section {
                 padding: 1.2rem;
             }
             .donate-item {
@@ -505,13 +484,6 @@
                 align-items: center;
                 gap: 0.2rem;
             }
-        }
-
-        /* маленькие декоративные звёзды */
-        .star-decoration {
-            color: #fff4e0;
-            opacity: 0.2;
-            font-size: 0.5rem;
         }
 
         footer {
@@ -529,7 +501,6 @@
     <!-- ШАПКА -->
     <header class="header">
         <div class="logo-block">
-            <!-- Аватар сервера с кликом -->
             <img src="https://cdn.discordapp.com/icons/1385741587350290573/a_avatar?size=128" 
                  alt="Nexus Verse" 
                  class="server-avatar" 
@@ -547,71 +518,39 @@
 
     <!-- НАВИГАЦИЯ -->
     <nav class="nav-tabs">
-        <a href="#" class="active"><i class="fas fa-newspaper"></i> Новости сервера</a>
+        <a href="#" class="active"><i class="fas fa-globe-europe"></i> Обновления</a>
         <a href="#"><i class="fas fa-users"></i> Персонал</a>
         <a href="#"><i class="fas fa-coins"></i> Донат</a>
         <a href="#"><i class="fas fa-info-circle"></i> О сервере</a>
     </nav>
 
-    <!-- БЛОК НОВОСТЕЙ (публикации из канала с ID 1385741588457590907) -->
-    <section class="news-section" id="news">
-        <div class="news-header">
-            <i class="fas fa-bullhorn"></i>
-            <h2>Последние новости</h2>
+    <!-- БЛОК ОБНОВЛЕНИЙ (вместо новостей) -->
+    <section class="updates-section">
+        <div class="updates-header">
+            <i class="fas fa-bell"></i>
+            <h2>Обновления сервера</h2>
         </div>
-        <div class="news-feed" id="newsFeed">
-            <!-- Новости будут загружены из канала (имитация) 
-                 В реальности нужно API Discord, но для демонстрации используем статичные примеры 
-                 с указанием ID канала -->
-            <div class="news-item">
-                <div class="news-meta">
-                    <span><i class="far fa-calendar-alt"></i> 30.08.2026</span>
-                    <span><i class="fas fa-hashtag"></i> #1385741588457590907</span>
-                </div>
-                <div class="news-content">
-                    <strong>⚡ Начало новой эры!</strong> Объявлен набор в альянсы. Подробности в канале <i>«военные-сводки»</i>.
-                </div>
+        <div class="updates-grid">
+            <div class="update-card">
+                <div class="update-date"><i class="far fa-calendar-alt"></i> 30.08.2026</div>
+                <div class="update-title">⚡ Баланс сил</div>
+                <div class="update-desc">Переработана система альянсов. Добавлены новые дипломатические механики.</div>
             </div>
-            <div class="news-item">
-                <div class="news-meta">
-                    <span><i class="far fa-calendar-alt"></i> 29.08.2026</span>
-                    <span><i class="fas fa-hashtag"></i> #1385741588457590907</span>
-                </div>
-                <div class="news-content">
-                    <strong>📜 Обновление карты</strong> Добавлены новые территории. Следите за обновлениями в канале новостей.
-                </div>
+            <div class="update-card">
+                <div class="update-date"><i class="far fa-calendar-alt"></i> 28.08.2026</div>
+                <div class="update-title">📜 Карта обновлена</div>
+                <div class="update-desc">Добавлены 4 новых региона. Изменены границы влияния.</div>
             </div>
-            <div class="news-item">
-                <div class="news-meta">
-                    <span><i class="far fa-calendar-alt"></i> 28.08.2026</span>
-                    <span><i class="fas fa-hashtag"></i> #1385741588457590907</span>
-                </div>
-                <div class="news-content">
-                    <strong>🏆 Итоги турнира</strong> Поздравляем победителей! Результаты опубликованы.
-                </div>
+            <div class="update-card">
+                <div class="update-date"><i class="far fa-calendar-alt"></i> 26.08.2026</div>
+                <div class="update-title">🏆 Турнирная таблица</div>
+                <div class="update-desc">Опубликованы итоги ежемесячного турнира. Поздравляем победителей!</div>
             </div>
-            <div class="news-item">
-                <div class="news-meta">
-                    <span><i class="far fa-calendar-alt"></i> 27.08.2026</span>
-                    <span><i class="fas fa-hashtag"></i> #1385741588457590907</span>
-                </div>
-                <div class="news-content">
-                    <strong>🛡️ Новый набор в гвардию</strong> Требования: уровень 10+, активность. Подать заявку до 05.09.
-                </div>
+            <div class="update-card">
+                <div class="update-date"><i class="far fa-calendar-alt"></i> 24.08.2026</div>
+                <div class="update-title">🛡️ Набор в гвардию</div>
+                <div class="update-desc">Открыт набор в элитный отряд. Требования: уровень 10+, активность.</div>
             </div>
-            <!-- Дополнительный элемент, чтобы показать наполнение -->
-            <div class="news-item">
-                <div class="news-meta">
-                    <span><i class="far fa-calendar-alt"></i> 26.08.2026</span>
-                    <span><i class="fas fa-hashtag"></i> #1385741588457590907</span>
-                </div>
-                <div class="news-content">
-                    <strong>🌐 Дипломатические переговоры</strong> Открыт канал для обсуждения союзов.
-                </div>
-            </div>
-        </div>
-        <div style="margin-top: 1rem; font-size: 0.85rem; opacity: 0.5; text-align: right;">
-            <i class="fas fa-sync-alt"></i> Синхронизация с каналом #1385741588457590907
         </div>
     </section>
 
@@ -622,7 +561,6 @@
             <h2 style="font-weight: 500; font-size: 1.8rem;">Персонал</h2>
         </div>
         <div class="staff-grid">
-            <!-- Vermilion - Владелец -->
             <div class="staff-card">
                 <img src="https://cdn.discordapp.com/avatars/747462012291776514/a_avatar?size=80" 
                      class="staff-avatar" 
@@ -630,7 +568,6 @@
                 <div class="staff-name">Vermilion</div>
                 <div class="staff-role"><i class="fas fa-crown"></i> Владелец</div>
             </div>
-            <!-- Mirzobek - Разработчик бота -->
             <div class="staff-card">
                 <img src="https://cdn.discordapp.com/avatars/1383969207196192851/a_avatar?size=80" 
                      class="staff-avatar" 
@@ -638,7 +575,6 @@
                 <div class="staff-name">Mirzobek</div>
                 <div class="staff-role"><i class="fas fa-code"></i> Разработчик бота</div>
             </div>
-            <!-- AytacOnan2 - Гражданин айтактауна -->
             <div class="staff-card">
                 <img src="https://cdn.discordapp.com/avatars/484044030640914437/a_avatar?size=80" 
                      class="staff-avatar" 
@@ -646,7 +582,6 @@
                 <div class="staff-name">AytacOnan2</div>
                 <div class="staff-role"><i class="fas fa-user-tie"></i> Гражданин Айтактауна</div>
             </div>
-            <!-- Dyrm9 - Дурмис -->
             <div class="staff-card">
                 <img src="https://cdn.discordapp.com/avatars/1327423107648192526/a_avatar?size=80" 
                      class="staff-avatar" 
@@ -691,12 +626,12 @@
     </footer>
 </div>
 
-<!-- МОДАЛЬНОЕ ОКНО с увеличенной аватаркой -->
+<!-- МОДАЛЬНОЕ ОКНО -->
 <div class="modal-overlay" id="avatarModal">
     <div class="modal-content">
         <span class="modal-close" id="closeModal">&times;</span>
         <img src="https://cdn.discordapp.com/icons/1385741587350290573/a_avatar?size=512" 
-             alt="Nexus Verse полная аватарка"
+             alt="Nexus Verse аватарка"
              onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 200 200%22%3E%3Crect fill=%22%23b04a30%22 width=%22200%22 height=%22200%22/%3E%3Ctext x=%2240%22 y=%22130%22 font-size=%2280%22 fill=%22%23ffc0a0%22%3ENV%3C/text%3E%3C/svg%3E'">
         <p style="margin-top: 12px; color: #ffc0a0; font-weight: 400;">Nexus Verse • ID: 1385741587350290573</p>
     </div>
@@ -719,9 +654,6 @@
     modal.addEventListener('click', (e) => {
         if (e.target === modal) modal.classList.remove('open');
     });
-
-    // Дополнительно: можно добавить динамическую подгрузку новостей, но т.к. API Discord требует бота,
-    // оставляем статичные примеры с указанием ID канала. 
-    // В реальном проекте здесь был бы fetch к вашему бэкенду.
-    console.log('Nexus Verse WPG • канал новостей ID: 1385741588457590907');
-</script
+</script>
+</body>
+</html>
