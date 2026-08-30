@@ -4,699 +4,353 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Nexus Verse WPG</title>
-    <!-- Font Awesome (иконки) -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Segoe UI', Roboto, system-ui, sans-serif;
-        }
-
-        body {
-            min-height: 100vh;
-            background: linear-gradient(145deg, #1a0b0b 0%, #2d1414 40%, #4f1e1e 70%, #6e2a2a 100%);
-            background-attachment: fixed;
-            color: #f5e6e6;
-            padding: 20px;
-            position: relative;
-        }
-
-        /* Закатное небо со звёздами и солнцем */
-        .sky-background {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: -2;
-            background: radial-gradient(circle at 70% 85%, #ff7b4a 0%, #d94f2a 25%, #a6311c 50%, #4f1a1a 75%, #1f0a0a 100%);
-            overflow: hidden;
-        }
-
-        /* Солнце */
-        .sun {
-            position: absolute;
-            bottom: 12%;
-            right: 12%;
-            width: 180px;
-            height: 180px;
-            background: radial-gradient(circle, #ffe074 0%, #ffb347 60%, #ff7b2b 100%);
-            border-radius: 50%;
-            box-shadow: 0 0 120px #ff884d, 0 0 200px #ff6633, 0 0 300px #cc4422;
-            opacity: 0.9;
-            z-index: -1;
-        }
-
-        /* Звёзды */
-        .stars {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: -1;
-            background-image: 
-                radial-gradient(2px 2px at 10% 20%, #fff, rgba(0,0,0,0)),
-                radial-gradient(2px 2px at 30% 5%, #fff, rgba(0,0,0,0)),
-                radial-gradient(3px 3px at 55% 10%, #fff, rgba(0,0,0,0)),
-                radial-gradient(2px 2px at 80% 25%, #fff, rgba(0,0,0,0)),
-                radial-gradient(2px 2px at 15% 50%, #fff, rgba(0,0,0,0)),
-                radial-gradient(3px 3px at 45% 40%, #fff, rgba(0,0,0,0)),
-                radial-gradient(2px 2px at 70% 55%, #fff, rgba(0,0,0,0)),
-                radial-gradient(2px 2px at 90% 70%, #fff, rgba(0,0,0,0)),
-                radial-gradient(2px 2px at 5% 80%, #fff, rgba(0,0,0,0)),
-                radial-gradient(3px 3px at 60% 85%, #fff, rgba(0,0,0,0)),
-                radial-gradient(2px 2px at 25% 90%, #fff, rgba(0,0,0,0)),
-                radial-gradient(2px 2px at 88% 40%, #fff, rgba(0,0,0,0));
-            background-size: 100% 100%;
-            background-repeat: no-repeat;
-            opacity: 0.8;
-        }
-
-        /* Полупрозрачный слой для читаемости */
-        .overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(20, 5, 5, 0.4);
-            backdrop-filter: blur(1px);
-            z-index: -1;
-        }
-
-        .container {
-            max-width: 1300px;
-            margin: 0 auto;
-            position: relative;
-            z-index: 2;
-        }
-
-        /* Шапка */
-        .header {
-            display: flex;
-            flex-wrap: wrap;
-            align-items: center;
-            justify-content: space-between;
-            background: rgba(40, 15, 15, 0.7);
-            backdrop-filter: blur(8px);
-            padding: 16px 30px;
-            border-radius: 50px;
-            border: 1px solid rgba(255, 120, 80, 0.3);
-            box-shadow: 0 8px 30px rgba(0,0,0,0.6);
-            margin-bottom: 30px;
-        }
-
-        .logo-area {
-            display: flex;
-            align-items: center;
-            gap: 18px;
-        }
-
-        .avatar-wrapper {
-            position: relative;
-            cursor: pointer;
-            transition: transform 0.2s;
-        }
-        .avatar-wrapper:hover {
-            transform: scale(1.05);
-        }
-
-        .server-avatar {
-            width: 68px;
-            height: 68px;
-            border-radius: 50%;
-            border: 2px solid #ff9a7a;
-            box-shadow: 0 0 20px #ff6633aa;
-            background: #2d1414;
-            object-fit: cover;
-        }
-
-        .server-name {
-            font-size: 1.9rem;
-            font-weight: 600;
-            letter-spacing: 1px;
-            background: linear-gradient(135deg, #ffc4b0, #ff8a6a);
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
-            text-shadow: 0 0 20px #ff663355;
-        }
-
-        .invite-link {
-            background: rgba(255, 80, 50, 0.2);
-            padding: 8px 22px;
-            border-radius: 40px;
-            border: 1px solid #ff7a5a;
-            color: #ffd5c0;
-            text-decoration: none;
-            font-weight: 500;
-            transition: 0.3s;
-            backdrop-filter: blur(4px);
-            font-size: 1rem;
-        }
-        .invite-link i {
-            margin-right: 8px;
-            color: #ffaa88;
-        }
-        .invite-link:hover {
-            background: #ff5a3a55;
-            border-color: #ffaa88;
-            color: #fff;
-            box-shadow: 0 0 20px #ff663388;
-        }
-
-        /* Навигация */
-        .nav {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px 18px;
-            background: rgba(30, 10, 10, 0.5);
-            backdrop-filter: blur(4px);
-            padding: 12px 25px;
-            border-radius: 40px;
-            margin-bottom: 30px;
-            border: 1px solid #883c2a55;
-        }
-        .nav a {
-            color: #f0d4cc;
-            text-decoration: none;
-            font-weight: 500;
-            font-size: 1.05rem;
-            padding: 6px 8px;
-            border-radius: 30px;
-            transition: 0.2s;
-            border-bottom: 2px solid transparent;
-        }
-        .nav a i {
-            margin-right: 8px;
-            color: #ff9f7a;
-        }
-        .nav a:hover {
-            color: #fff2e6;
-            border-bottom-color: #ff8a5a;
-            background: #ff663322;
-            padding: 6px 14px;
-        }
-        .nav a.active {
-            color: #fff;
-            border-bottom-color: #ff7a4a;
-            background: #ff663322;
-        }
-
-        /* Основная сетка */
-        .main-grid {
-            display: grid;
-            grid-template-columns: 1fr 340px;
-            gap: 30px;
-        }
-
-        @media (max-width: 900px) {
-            .main-grid {
-                grid-template-columns: 1fr;
-            }
-        }
-
-        /* Новости */
-        .news-section {
-            background: rgba(25, 8, 8, 0.65);
-            backdrop-filter: blur(6px);
-            border-radius: 30px;
-            padding: 25px 25px 30px;
-            border: 1px solid #aa4f3a55;
-            box-shadow: 0 10px 40px rgba(0,0,0,0.5);
-        }
-
-        .section-title {
-            font-size: 1.6rem;
-            font-weight: 500;
-            margin-bottom: 20px;
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            color: #ffcebb;
-            border-bottom: 1px solid #883c2a55;
-            padding-bottom: 12px;
-        }
-        .section-title i {
-            color: #ff8f6a;
-        }
-
-        .news-feed {
-            display: flex;
-            flex-direction: column;
-            gap: 18px;
-            max-height: 600px;
-            overflow-y: auto;
-            padding-right: 6px;
-        }
-        .news-feed::-webkit-scrollbar {
-            width: 5px;
-        }
-        .news-feed::-webkit-scrollbar-track {
-            background: #331515;
-            border-radius: 20px;
-        }
-        .news-feed::-webkit-scrollbar-thumb {
-            background: #cc6a4a;
-            border-radius: 20px;
-        }
-
-        .news-item {
-            background: rgba(60, 25, 20, 0.5);
-            border-left: 4px solid #ff7a4a;
-            padding: 16px 20px;
-            border-radius: 18px;
-            backdrop-filter: blur(2px);
-            transition: 0.2s;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.3);
-        }
-        .news-item:hover {
-            background: rgba(80, 35, 28, 0.6);
-            transform: translateX(4px);
-        }
-        .news-item .date {
-            font-size: 0.8rem;
-            color: #ccaa9a;
-            margin-bottom: 6px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-        .news-item .date i {
-            color: #ff8f6a;
-            font-size: 0.7rem;
-        }
-        .news-item .content {
-            font-size: 1rem;
-            line-height: 1.5;
-            color: #f0ded6;
-            word-break: break-word;
-        }
-
-        /* Боковая панель */
-        .sidebar {
-            display: flex;
-            flex-direction: column;
-            gap: 30px;
-        }
-
-        /* Персонал */
-        .staff-card {
-            background: rgba(25, 8, 8, 0.65);
-            backdrop-filter: blur(6px);
-            border-radius: 30px;
-            padding: 22px 20px 25px;
-            border: 1px solid #aa4f3a55;
-            box-shadow: 0 10px 40px rgba(0,0,0,0.5);
-        }
-
-        .staff-list {
-            display: flex;
-            flex-direction: column;
-            gap: 14px;
-            margin-top: 8px;
-        }
-        .staff-item {
-            display: flex;
-            align-items: center;
-            gap: 16px;
-            background: rgba(50, 20, 18, 0.5);
-            padding: 10px 16px 10px 12px;
-            border-radius: 40px;
-            backdrop-filter: blur(2px);
-            border: 1px solid #6f352955;
-            transition: 0.2s;
-        }
-        .staff-item:hover {
-            background: rgba(80, 35, 28, 0.5);
-            border-color: #cc6a4a;
-        }
-        .staff-avatar {
-            width: 48px;
-            height: 48px;
-            border-radius: 50%;
-            border: 2px solid #ff9a7a;
-            background: #3f1d1d;
-            object-fit: cover;
-        }
-        .staff-info {
-            display: flex;
-            flex-direction: column;
-        }
-        .staff-name {
-            font-weight: 600;
-            color: #ffd9c9;
-        }
-        .staff-role {
-            font-size: 0.8rem;
-            color: #ccaa9a;
-        }
-
-        /* Донат */
-        .donate-card {
-            background: rgba(25, 8, 8, 0.65);
-            backdrop-filter: blur(6px);
-            border-radius: 30px;
-            padding: 22px 20px 25px;
-            border: 1px solid #aa4f3a55;
-            box-shadow: 0 10px 40px rgba(0,0,0,0.5);
-        }
-
-        .donate-card h3 {
-            font-weight: 400;
-            font-size: 1.3rem;
-            margin-bottom: 14px;
-            color: #ffcebb;
-            border-bottom: 1px solid #883c2a55;
-            padding-bottom: 10px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-        .donate-card h3 i {
-            color: #ffb08a;
-        }
-
-        .donate-item {
-            display: flex;
-            justify-content: space-between;
-            padding: 8px 4px;
-            border-bottom: 1px dashed #6f352944;
-            font-size: 0.95rem;
-        }
-        .donate-item:last-child {
-            border-bottom: none;
-        }
-        .donate-item .price {
-            color: #ffb08a;
-            font-weight: 500;
-        }
-        .donate-note {
-            margin-top: 14px;
-            padding: 12px;
-            background: rgba(60, 25, 18, 0.4);
-            border-radius: 20px;
-            font-size: 0.9rem;
-            border-left: 3px solid #ff7a4a;
-        }
-        .donate-note strong {
-            color: #ffc4aa;
-        }
-        .currency-rate {
-            margin-top: 12px;
-            background: #3f1d1d55;
-            padding: 10px 14px;
-            border-radius: 30px;
-            text-align: center;
-            font-weight: 400;
-            color: #ffd5c0;
-            border: 1px solid #88443355;
-        }
-
-        /* Модалка для аватарки */
-        .modal {
-            display: none;
-            position: fixed;
-            top: 0; left: 0;
-            width: 100%; height: 100%;
-            background: rgba(0,0,0,0.75);
-            backdrop-filter: blur(6px);
-            z-index: 999;
-            justify-content: center;
-            align-items: center;
-        }
-        .modal-content {
-            max-width: 600px;
-            width: 90%;
-            background: rgba(30, 10, 10, 0.9);
-            border-radius: 40px;
-            padding: 20px;
-            border: 2px solid #ff8a5a;
-            box-shadow: 0 0 80px #ff663388;
-            animation: fadeIn 0.3s ease;
-            text-align: center;
-        }
-        .modal-content img {
-            width: 100%;
-            border-radius: 30px;
-            border: 2px solid #ff9a7a;
-        }
-        .modal-close {
-            margin-top: 18px;
-            background: #cc5a3a;
-            border: none;
-            padding: 10px 32px;
-            border-radius: 40px;
-            color: #fff;
-            font-weight: 600;
-            font-size: 1rem;
-            cursor: pointer;
-            transition: 0.2s;
-        }
-        .modal-close:hover {
-            background: #ff7a4a;
-            box-shadow: 0 0 30px #ff663366;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: scale(0.9); }
-            to { opacity: 1; transform: scale(1); }
-        }
-
-        /* футер */
-        .footer {
-            margin-top: 40px;
-            text-align: center;
-            color: #bb9a8a;
-            font-size: 0.9rem;
-            border-top: 1px solid #6f352944;
-            padding-top: 25px;
-            backdrop-filter: blur(2px);
-        }
-
-        /* адаптив */
-        @media (max-width: 700px) {
-            .header {
-                flex-direction: column;
-                align-items: start;
-                gap: 15px;
-                border-radius: 30px;
-            }
-            .server-name {
-                font-size: 1.4rem;
-            }
-            .nav {
-                gap: 8px;
-                justify-content: center;
-            }
-            .nav a {
-                font-size: 0.9rem;
-            }
-        }
-    </style>
+    <link rel="stylesheet" href="style.css">
+    <!-- Иконки Font Awesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" rel="stylesheet">
+    <!-- Шрифт Montserrat -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600&display=swap" rel="stylesheet">
 </head>
 <body>
-    <div class="sky-background">
-        <div class="stars"></div>
-        <div class="sun"></div>
-    </div>
-    <div class="overlay"></div>
+    <!-- Фон заката и звезд -->
+    <div id="stars"></div>
+    <div id="sun"></div>
+    
+    <!-- Шапка сервера -->
+    <header class="server-header">
+        <!-- Аватарка сервера (ID: 1385741587350290573) -->
+        <img src="https://cdn.discordapp.com/icons/1385741587350290573/a_placeholder_image.png?size=256" alt="Аватар Nexus Verse" id="server-icon" data-full="https://i.imgur.com/KxJZ8yR.jpeg">
+        <h1>Nexus Verse WPG</h1>
+        <a href="https://discord.gg/nexusverse" target="_blank" class="btn-discord"><i class="fab fa-discord"></i> Присоединиться</a>
+    </header>
 
-    <!-- Модалка для аватарки -->
-    <div id="avatarModal" class="modal">
-        <div class="modal-content">
-            <img id="modalAvatarImg" src="https://cdn.discordapp.com/icons/1385741587350290573/a_avatar_hash.webp?size=512" alt="Nexus Verse">
-            <button class="modal-close" id="closeModalBtn"><i class="fas fa-times"></i> Закрыть</button>
-        </div>
-    </div>
+    <!-- Навигация -->
+    <nav class="navbar">
+        <a href="#news" class="nav-link active">Новости сервера</a>
+        <a href="#staff" class="nav-link">Персонал</a>
+        <a href="#donate" class="nav-link">Донат-валюта</a>
+    </nav>
 
-    <div class="container">
-        <!-- Шапка -->
-        <header class="header">
-            <div class="logo-area">
-                <div class="avatar-wrapper" id="avatarTrigger">
-                    <img class="server-avatar" src="https://cdn.discordapp.com/icons/1385741587350290573/a_avatar_hash.webp?size=128" alt="Server Icon">
-                </div>
-                <span class="server-name">NEXUS VERSE WPG</span>
+    <!-- Основной контент -->
+    <main class="container">
+        
+        <!-- Секция новостей -->
+        <section id="news" class="card">
+            <h2><i class="fas fa-newspaper"></i> Лента событий</h2>
+            <div id="news-feed">
+                <p class="no-news">Идет подключение к каналу... Ожидайте обновления.</p>
             </div>
-            <a href="https://discord.gg/nexusverse" target="_blank" class="invite-link">
-                <i class="fas fa-rocket"></i> Присоединиться
-            </a>
-        </header>
+        </section>
 
-        <!-- Навигация -->
-        <nav class="nav">
-            <a href="#" class="active"><i class="fas fa-newspaper"></i> Новости сервера</a>
-            <a href="#"><i class="fas fa-users"></i> Персонал</a>
-            <a href="#"><i class="fas fa-coins"></i> Донат</a>
-            <a href="#"><i class="fas fa-info-circle"></i> О сервере</a>
-        </nav>
-
-        <!-- Основная сетка -->
-        <div class="main-grid">
-            <!-- Лента новостей -->
-            <section class="news-section">
-                <div class="section-title">
-                    <i class="fas fa-broadcast"></i> Новости сервера
+        <!-- Секция персонала -->
+        <section id="staff" class="card">
+            <h2><i class="fas fa-users-cog"></i> Персонал Nexus Verse</h2>
+            <div class="staff-grid">
+                <div class="staff-card owner">
+                    <img src="https://cdn.discordapp.com/avatars/747462012291776514/a_data_placeholder.png" alt="Vermilion" onerror="this.src='https://via.placeholder.com/100'">
+                    <h3>Vermilion</h3>
+                    <span class="role-tag">Владелец сервера</span>
                 </div>
-                <div id="newsFeed" class="news-feed">
-                    <!-- Новости будут загружены через JS -->
-                    <div class="news-item"><div class="date"><i class="far fa-clock"></i> Загрузка...</div><div class="content">Получение сообщений из канала...</div></div>
+                <div class="staff-card dev">
+                    <img src="https://cdn.discordapp.com/avatars/1383969207196192851/a_data_placeholder.png" alt="Mirzobek" onerror="this.src='https://via.placeholder.com/100'">
+                    <h3>Mirzobek</h3>
+                    <span class="role-tag">Разработчик бота</span>
                 </div>
-            </section>
-
-            <!-- Боковая панель -->
-            <aside class="sidebar">
-                <!-- Персонал -->
-                <div class="staff-card">
-                    <div class="section-title" style="font-size:1.3rem; margin-bottom:8px;">
-                        <i class="fas fa-shield-alt"></i> Персонал
-                    </div>
-                    <div class="staff-list" id="staffList">
-                        <!-- Заполняется JS -->
-                    </div>
+                <div class="staff-card member">
+                    <img src="https://cdn.discordapp.com/avatars/484044030640914437/a_data_placeholder.png" alt="AytacOnan2" onerror="this.src='https://via.placeholder.com/100'">
+                    <h3>AytacOnan2</h3>
+                    <span class="role-tag">Гражданин айтактауна</span>
                 </div>
-
-                <!-- Донат -->
-                <div class="donate-card">
-                    <h3><i class="fas fa-gem"></i> Донат-валюта</h3>
-                    <div class="donate-item"><span>Бронь на сверхдержаву</span><span class="price">500 NV</span></div>
-                    <div class="donate-item"><span>Бронь на сильную державу</span><span class="price">350 NV</span></div>
-                    <div class="donate-item"><span>Бронь на развитую державу</span><span class="price">200 NV</span></div>
-                    <div class="donate-item"><span>Кастомная роль</span><span class="price">180 NV</span></div>
-                    <div class="donate-note">
-                        <strong>Сверхдержавы:</strong> КНР, США<br>
-                        <strong>Сильные:</strong> Россия, Турция, Бразилия, Великобритания, Франция, Индия<br>
-                        <strong>Развитые:</strong> Германия, Япония, Южная Корея, Италия, Саудовская Аравия
-                    </div>
-                    <div class="donate-item" style="border-bottom: none; padding-top:6px;">
-                        <span>Бронь на остальные страны</span><span class="price">75 NV</span>
-                    </div>
-                    <div class="currency-rate">
-                        <i class="fas fa-coins"></i> 1 NV коин = 0,65 ₽
-                    </div>
+                <div class="staff-card member">
+                    <img src="https://cdn.discordapp.com/avatars/1327423107648192526/a_data_placeholder.png" alt="Dyrm9" onerror="this.src='https://via.placeholder.com/100'">
+                    <h3>Dyrm9</h3>
+                    <span class="role-tag">Дурмис</span>
                 </div>
-            </aside>
-        </div>
+            </div>
+        </section>
 
-        <div class="footer">
-            <i class="fas fa-globe"></i> Nexus Verse WPG · Военно-политический сервер
-        </div>
-    </div>
+        <!-- Секция доната -->
+        <section id="donate" class="card">
+            <h2><i class="fas fa-coins"></i> Памятка об NV коинах</h2>
+            <p style="text-align: center; color: #ffcccc;">Курс: <strong>1 NV = 0,65 ₽</strong></p>
+            
+            <div class="price-list">
+                <h3>Бронирование держав</h3>
+                <ul>
+                    <li><span>Сверхдержава (КНР, США)</span> <span>500 NV</span></li>
+                    <li><span>Сильная держава (РФ, Турция, Бразилия...)</span> <span>350 NV</span></li>
+                    <li><span>Развитая держава (Германия, Япония...)</span> <span>200 NV</span></li>
+                    <li><span>Любая другая страна</span> <span>75 NV</span></li>
+                </ul>
+            </div>
 
-    <script>
-        (function() {
-            // === Данные персонала ===
-            const staffData = [
-                { id: '747462012291776514', name: 'Vermilion', role: 'Владелец сервера' },
-                { id: '1383969207196192851', name: 'Mirzobek', role: 'Разработчик бота' },
-                { id: '484044030640914437', name: 'AytacOnan2', role: 'Гражданин айтактауна' },
-                { id: '1327423107648192526', name: 'Dyrm9', role: 'Дурмис' }
-            ];
+            <div class="price-list">
+                <h3>Услуги кастомизации</h3>
+                <ul>
+                    <li><span>Кастомная роль</span> <span>180 NV</span></li>
+                </ul>
+            </div>
+        </section>
+    </main>
 
-            // === ID канала для новостей (1385741588457590907) ===
-            const CHANNEL_ID = '1385741588457590907';
-            // Для демонстрации используем статичные примеры, т.к. реальный API Discord требует OAuth.
-            // Но по заданию "публиковались все сообщения из канала" — используем заглушку с реалистичным видом.
-            // В реальном проекте нужен бот/прокси. Здесь покажем оформление и структуру.
-
-            function renderStaff() {
-                const container = document.getElementById('staffList');
-                if (!container) return;
-                container.innerHTML = '';
-                staffData.forEach(member => {
-                    const avatarUrl = `https://cdn.discordapp.com/avatars/${member.id}/${member.id}.webp?size=64`;
-                    const div = document.createElement('div');
-                    div.className = 'staff-item';
-                    div.innerHTML = `
-                        <img class="staff-avatar" src="${avatarUrl}" alt="${member.name}" onerror="this.src='https://cdn.discordapp.com/embed/avatars/0.png'">
-                        <div class="staff-info">
-                            <span class="staff-name">${member.name}</span>
-                            <span class="staff-role">${member.role}</span>
-                        </div>
-                    `;
-                    container.appendChild(div);
-                });
-            }
-
-            // === Загрузка новостей (демо) ===
-            function loadNews() {
-                const feed = document.getElementById('newsFeed');
-                if (!feed) return;
-
-                // Имитация сообщений из канала (в реальности — запрос к API)
-                const demoMessages = [
-                    { date: '2026-08-30 14:20', text: '📢 Начало новой эры! Объявлен набор в альянсы.' },
-                    { date: '2026-08-30 12:05', text: '⚔️ Конфликт между США и КНР: эскалация на Тихом океане.' },
-                    { date: '2026-08-29 21:40', text: '💰 Курс NV коина обновлён: 1 NV = 0,65 ₽' },
-                    { date: '2026-08-29 18:15', text: '🏛️ Внесены изменения в правила бронирования держав.' },
-                    { date: '2026-08-29 09:30', text: '🌍 Сервер переходит на новый движок WPG 2.0' }
-                ];
-
-                feed.innerHTML = '';
-                demoMessages.forEach(msg => {
-                    const item = document.createElement('div');
-                    item.className = 'news-item';
-                    item.innerHTML = `
-                        <div class="date"><i class="far fa-calendar-alt"></i> ${msg.date}</div>
-                        <div class="content">${msg.text}</div>
-                    `;
-                    feed.appendChild(item);
-                });
-
-                // Добавим сообщение, что это демо-лента (в реальности данные из канала)
-                const info = document.createElement('div');
-                info.style.cssText = 'text-align:center; color:#bb8a7a; font-size:0.8rem; margin-top:12px; border-top:1px solid #6f352944; padding-top:12px;';
-                info.innerHTML = '<i class="fas fa-info-circle"></i> Данные из канала #новости (демонстрация)';
-                feed.appendChild(info);
-            }
-
-            // === Модалка для аватарки ===
-            function initModal() {
-                const modal = document.getElementById('avatarModal');
-                const trigger = document.getElementById('avatarTrigger');
-                const closeBtn = document.getElementById('closeModalBtn');
-
-                if (!modal || !trigger || !closeBtn) return;
-
-                trigger.addEventListener('click', () => {
-                    modal.style.display = 'flex';
-                });
-
-                closeBtn.addEventListener('click', () => {
-                    modal.style.display = 'none';
-                });
-
-                modal.addEventListener('click', (e) => {
-                    if (e.target === modal) modal.style.display = 'none';
-                });
-            }
-
-            // === Запуск ===
-            renderStaff();
-            loadNews();
-            initModal();
-
-            // Для красоты: обработка навигации (без перезагрузки)
-            document.querySelectorAll('.nav a').forEach(link => {
-                link.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    document.querySelectorAll('.nav a').forEach(a => a.classList.remove('active'));
-                    this.classList.add('active');
-                    // Можно добавить переключение разделов, но по заданию оставляем как есть
-                });
-            });
-
-            // Если в будущем потребуется реальный запрос к Discord API,
-            // здесь можно разместить fetch с использованием бота/токена.
-            // Но для данной задачи используем демо-сообщения.
-        })();
-    </script>
-
-    <!-- Запасной URL для аватарки сервера (если не загрузится) -->
-    <img src="https://cdn.discordapp.com/icons/1385741587350290573/a_avatar_hash.webp?size=512" style="display:none;" onerror="this.onerror=null; document.querySelectorAll('.server-avatar, #modalAvatarImg').forEach(img => img.src='https://cdn.discordapp.com/embed/avatars/0.png');">
+    <script src="script.js"></script>
 </body>
 </html>
+
+:root {
+    --primary-red: #ff4d4d;
+    --dark-bg: #0f0f1a;
+    --card-bg: rgba(255, 255, 255, 0.08);
+    --text-light: #f5f5f5;
+    --text-muted: #cccccc;
+    --border-glow: rgba(255, 77, 77, 0.4);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Montserrat', sans-serif;
+    background-color: var(--dark-bg);
+    color: var(--text-light);
+    line-height: 1.6;
+    overflow-x: hidden;
+    position: relative;
+}
+
+/* АНИМАЦИЯ ЗАКАТА */
+#stars {
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: 
+        radial-gradient(2px 2px at 20% 40%, #fff, transparent),
+        radial-gradient(1px 1px at 80% 20%, #fff, transparent),
+        radial-gradient(2px 2px at 90% 70%, #fff, transparent);
+    z-index: -3;
+}
+#sun {
+    position: fixed;
+    width: 150px; height: 150px;
+    background: radial-gradient(circle, #ffb347, #ff4d4d);
+    border-radius: 50%;
+    bottom: -100px;
+    left: 50%; transform: translateX(-50%);
+    filter: blur(10px);
+    animation: sunset 15s ease-in-out infinite alternate;
+    z-index: -2;
+}
+@keyframes sunset {
+    0% { bottom: -100px; }
+    100% { bottom: -150px; opacity: 0.6; }
+}
+
+/* КОНТЕЙНЕР (МАСШТАБ НЕ ГИГАНТСКИЙ) */
+.container {
+    max-width: 800px;
+    margin: 40px auto;
+    padding: 0 20px;
+}
+
+/* ХЕДЕР */
+.server-header {
+    text-align: center;
+    padding: 30px 0;
+    position: relative;
+}
+#server-icon {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 3px solid var(--primary-red);
+    cursor: pointer;
+    transition: transform 0.3s, box-shadow 0.3s;
+    box-shadow: 0 0 15px var(--border-glow);
+}
+#server-icon:hover {
+    transform: scale(1.1);
+    box-shadow: 0 0 25px var(--border-glow);
+}
+.server-header h1 {
+    font-size: 2.5rem;
+    margin-top: 15px;
+    background: linear-gradient(to right, #ffcccc, #ff4d4d);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+.btn-discord {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 20px;
+    padding: 12px 25px;
+    background: #5865F2;
+    color: white;
+    text-decoration: none;
+    border-radius: 8px;
+    font-weight: 600;
+    gap: 8px;
+    font-size: 0.95rem;
+    transition: all 0.3s;
+    border: 1px solid #404EED;
+}
+.btn-discord:hover {
+    background: #4752C4;
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(88, 101, 242, 0.4);
+}
+
+/* НАВИГАЦИЯ */
+.navbar {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-bottom: 30px;
+    flex-wrap: wrap;
+}
+.nav-link {
+    padding: 10px 20px;
+    background: var(--card-bg);
+    border: 1px solid rgba(255, 77, 77, 0.2);
+    border-radius: 25px;
+    color: var(--text-muted);
+    text-decoration: none;
+    font-weight: 500;
+    transition: all 0.3s;
+}
+.nav-link.active, .nav-link:hover {
+    background: var(--primary-red);
+    color: white;
+    border-color: var(--primary-red);
+    transform: scale(1.05);
+}
+
+/* КАРТОЧКИ */
+.card {
+    background: var(--card-bg);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 77, 77, 0.3);
+    border-radius: 16px;
+    padding: 25px;
+    margin-bottom: 30px;
+    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.1);
+}
+.card h2 {
+    font-size: 1.5rem;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+/* НОВОСТИ */
+.news-item {
+    background: rgba(255, 255, 255, 0.04);
+    border-left: 3px solid var(--primary-red);
+    padding: 15px;
+    border-radius: 8px;
+    margin-bottom: 15px;
+}
+.news-item .date {
+    font-size: 0.8rem;
+    color: #ff9999;
+    display: block;
+    margin-bottom: 5px;
+}
+.news-item h3 {
+    font-size: 1.1rem;
+    margin-bottom: 8px;
+}
+.news-item p {
+    color: var(--text-muted);
+    font-size: 0.95rem;
+}
+.no-news {
+    text-align: center;
+    color: #888;
+    font-style: italic;
+    padding: 40px 0;
+}
+
+/* ПЕРСОНАЛ */
+.staff-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: 20px;
+}
+.staff-card {
+    text-align: center;
+    background: rgba(255, 255, 255, 0.05);
+    padding: 15px;
+    border-radius: 12px;
+    border: 1px solid rgba(255, 77, 77, 0.2);
+    transition: transform 0.3s;
+}
+.staff-card:hover {
+    transform: translateY(-5px);
+}
+.staff-card img {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid var(--primary-red);
+    margin-bottom: 10px;
+}
+.staff-card h3 {
+    font-size: 1rem;
+    margin-bottom: 5px;
+}
+.role-tag {
+    display: inline-block;
+    padding: 4px 10px;
+    border-radius: 20px;
+    font-size: 0.75rem;
+    font-weight: 600;
+}
+.owner .role-tag { background: #ff4d4d; color: white; }
+.dev .role-tag { background: #eba236; color: white; }
+.member .role-tag { background: #4B7ACC; color: white; }
+
+/* ДОНАТ */
+.price-list {
+    margin-top: 20px;
+}
+.price-list ul {
+    list-style: none;
+}
+.price-list li {
+    display: flex;
+    justify-content: space-between;
+    padding: 12px 0;
+    border-bottom: 1px solid rgba(255, 77, 77, 0.1);
+    font-size: 0.95rem;
+}
+.price-list li:last-child {
+    border-bottom: none;
+}
+.price-list span:nth-child(2) {
+    font-weight: 600;
+    color: var(--primary-red);
+}
+
+/* АДАПТИВНОСТЬ */
+@media (max-width: 600px) {
+    .server-header h1 { font-size: 2rem; }
+    .navbar { justify-content: space-around; }
+    .card { padding: 20px; }
+}
+
+/* Попап большой картинки */
+.popup-bg {
+    position: fixed; top:0; left:0; width:100%; height:100%; 
+    background: rgba(0,0,0,0.9); display:flex; justify-content:center; 
+    align-items:center; z-index:9999; cursor: pointer;
+}
+.popup-img { 
+    max-width: 90%; max-height: 90vh; border-radius: 15px; 
+    box-shadow: 0 0 30px #ff4d4d; animation: fadeIn 0.3s; 
+}
+@keyframes fadeIn { from {opacity:0;} to {opacity:1;} }
